@@ -1,12 +1,15 @@
 ---
-import { content, defaultLanguage } from "../data/content";
+import { getLocalizedString } from "../utils/i18n";
 
-const t = content[defaultLanguage];
+const t = getLocalizedString;
+const aboutLabelKey = "about.label";
+const aboutTitleKey = "about.title";
+const aboutBodyKey = "about.body";
 ---
 
 <section id="about" class="section">
-  <p class="label" data-i18n="about.label">{t.about.label}</p>
-  <h2 data-i18n="about.title">{t.about.title}</h2>
-  <p data-i18n="about.body">{t.about.body}</p>
+  <p class="label" data-i18n={aboutLabelKey}>{t(aboutLabelKey)}</p>
+  <h2 data-i18n={aboutTitleKey}>{t(aboutTitleKey)}</h2>
+  <p data-i18n={aboutBodyKey}>{t(aboutBodyKey)}</p>
   <div class="glow-divider" aria-hidden="true"></div>
 </section>
