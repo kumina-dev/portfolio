@@ -1,14 +1,27 @@
+---
+import { content, defaultLanguage } from "../data/content";
+
+const t = content[defaultLanguage];
+---
+
 <section id="contact" class="section">
-  <p class="label">Contact</p>
-  <h2>Let’s collaborate</h2>
-  <p>
-    Have a product idea or need support on a privacy-conscious experience? I’d
-    love to hear from you.
-  </p>
+  <p class="label" data-i18n="contact.label">{t.contact.label}</p>
+  <h2 data-i18n="contact.title">{t.contact.title}</h2>
+  <p data-i18n="contact.body">{t.contact.body}</p>
   <div class="contact-actions">
-    <a class="button" href="mailto:hello@kumina.dev">Let’s build something — email me.</a>
-    <a class="email-link" href="mailto:hello@kumina.dev">hello@kumina.dev</a>
-    <div class="social-links">
+    <a class="button" href={`mailto:${t.contact.email}`} data-i18n="contact.cta">
+      {t.contact.cta}
+    </a>
+    <a class="email-link" href={`mailto:${t.contact.email}`} data-i18n="contact.email">
+      {t.contact.email}
+    </a>
+    <div
+      class="social-links"
+      aria-label={t.contact.socialLabel}
+      data-i18n="contact.socialLabel"
+      data-i18n-attr="aria-label"
+      data-i18n-mode="attr"
+    >
       <a
         href="https://github.com/kumina"
         aria-label="GitHub"

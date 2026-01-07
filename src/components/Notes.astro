@@ -1,34 +1,18 @@
+---
+import { content, defaultLanguage } from "../data/content";
+
+const t = content[defaultLanguage];
+---
+
 <section id="notes" class="section">
-  <p class="label">Notes</p>
-  <h2>Short updates</h2>
+  <p class="label" data-i18n="notes.label">{t.notes.label}</p>
+  <h2 data-i18n="notes.title">{t.notes.title}</h2>
   <div class="notes-list">
-    <article>
-      <h3>2024-08 — Scheduling system build</h3>
-      <p>
-        Built a scheduling system for welding students with reminders and
-        intake forms.
-      </p>
-    </article>
-    <article>
-      <h3>2024-06 — Local pantry tracker</h3>
-      <p>
-        Shipped a quick inventory tracker for a community pantry with weekly
-        status snapshots.
-      </p>
-    </article>
-    <article>
-      <h3>2024-04 — Studio booking helper</h3>
-      <p>
-        Mapped a simple booking flow for a photo studio, focusing on clarity and
-        calendar syncing.
-      </p>
-    </article>
-    <article>
-      <h3>2024-02 — Volunteer ops dashboard</h3>
-      <p>
-        Drafted a lightweight dashboard to track volunteer shifts and last-minute
-        coverage gaps.
-      </p>
-    </article>
+    {t.notes.items.map((note, index) => (
+      <article>
+        <h3 data-i18n={`notes.items.${index}.title`}>{note.title}</h3>
+        <p data-i18n={`notes.items.${index}.body`}>{note.body}</p>
+      </article>
+    ))}
   </div>
 </section>

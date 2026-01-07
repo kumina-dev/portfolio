@@ -5,15 +5,18 @@ import Projects from "../components/Projects.astro";
 import Experience from "../components/Experience.astro";
 import Notes from "../components/Notes.astro";
 import Contact from "../components/Contact.astro";
+import { content, defaultLanguage } from "../data/content";
+
+const t = content[defaultLanguage];
 ---
 
-<html lang="en">
+<html lang={defaultLanguage}>
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Kumina | Portfolio</title>
+		<title>{t.meta.title}</title>
 	</head>
 	<body>
 		<main>
@@ -24,6 +27,116 @@ import Contact from "../components/Contact.astro";
 			<Notes />
 			<Contact />
 		</main>
+		<script is:inline define:vars={{ content, defaultLanguage }}>
+			const contentData = content;
+			const defaultLanguageValue = defaultLanguage;
+			const languageButtons = document.querySelectorAll("[data-lang]");
+			const i18nElements = document.querySelectorAll("[data-i18n]");
+			const modal = document.querySelector("#project-modal");
+			const openButtons = document.querySelectorAll("[data-project-open]");
+			const modalClose = modal?.querySelector("[data-modal-close]");
+			const modalTitle = modal?.querySelector("[data-modal='title']");
+			const modalSummary = modal?.querySelector("[data-modal='summary']");
+			const modalHighlights = modal?.querySelector("[data-modal='highlights']");
+			const modalTech = modal?.querySelector("[data-modal='tech']");
+			let activeLanguage = defaultLanguageValue;
+			let activeProjectId = null;
+
+			const getValue = (lang, key) => {
+				return key.split(".").reduce((acc, part) => acc && acc[part], contentData[lang]);
+			};
+
+			const getProject = (lang, id) => {
+				return contentData[lang]?.projects?.items?.find((item) => item.id === id);
+			};
+
+			const renderModal = (project) => {
+				if (!project || !modalTitle || !modalSummary || !modalHighlights || !modalTech) return;
+				modalTitle.textContent = project.title;
+				modalSummary.textContent = project.summary;
+				modalTech.textContent = project.tech;
+				modalHighlights.innerHTML = "";
+				project.highlights.forEach((highlight) => {
+					const item = document.createElement("li");
+					item.textContent = highlight;
+					modalHighlights.appendChild(item);
+				});
+			};
+
+			const applyLanguage = (lang) => {
+				activeLanguage = lang;
+				document.documentElement.lang = lang;
+				document.title = contentData[lang]?.meta?.title ?? document.title;
+				i18nElements.forEach((el) => {
+					const key = el.dataset.i18n;
+					if (!key) return;
+					const value = getValue(lang, key);
+					if (typeof value !== "string") return;
+					const attrList = el.dataset.i18nAttr;
+					if (attrList) {
+						attrList.split(",").forEach((attr) => {
+							if (attr.trim()) {
+								el.setAttribute(attr.trim(), value);
+							}
+						});
+					}
+					if (el.dataset.i18nMode !== "attr") {
+						el.textContent = value;
+					}
+				});
+				languageButtons.forEach((button) => {
+					const isActive = button.dataset.lang === lang;
+					button.setAttribute("aria-pressed", String(isActive));
+					button.classList.toggle("is-active", isActive);
+				});
+				if (activeProjectId && modal?.open) {
+					const project = getProject(lang, activeProjectId);
+					renderModal(project);
+				}
+			};
+
+			const openModal = (projectId) => {
+				const project = getProject(activeLanguage, projectId);
+				if (!project || !modal) return;
+				activeProjectId = projectId;
+				renderModal(project);
+				modal.showModal();
+			};
+
+			const closeModal = () => {
+				if (!modal) return;
+				modal.close();
+			};
+
+			const savedLanguage = localStorage.getItem("language");
+			applyLanguage(savedLanguage || defaultLanguageValue);
+
+			languageButtons.forEach((button) => {
+				button.addEventListener("click", () => {
+					const nextLang = button.dataset.lang;
+					if (!nextLang) return;
+					localStorage.setItem("language", nextLang);
+					applyLanguage(nextLang);
+				});
+			});
+
+			openButtons.forEach((button) => {
+				button.addEventListener("click", () => {
+					const projectId = button.dataset.projectOpen;
+					if (projectId) {
+						openModal(projectId);
+					}
+				});
+			});
+
+			modalClose?.addEventListener("click", closeModal);
+			modal?.addEventListener("cancel", closeModal);
+			modal?.addEventListener("click", (event) => {
+				if (event.target === modal) {
+					closeModal();
+				}
+			});
+		</script>
 		<style is:global>
 			:root {
 				color-scheme: dark;
@@ -34,6 +147,7 @@ import Contact from "../components/Contact.astro";
 				--muted: #b6bdd9;
 				--border: rgba(124, 92, 255, 0.4);
 				--glow: rgba(124, 92, 255, 0.35);
+				--overlay: rgba(9, 10, 18, 0.75);
 			}
 
 			* {
@@ -90,6 +204,14 @@ import Contact from "../components/Contact.astro";
 				color: var(--text);
 			}
 
+			h4 {
+				margin: 0;
+				font-size: 1rem;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				color: var(--muted);
+			}
+
 			p {
 				margin: 0;
 				font-size: 1.05rem;
@@ -99,6 +221,23 @@ import Contact from "../components/Contact.astro";
 
 			.headline {
 				font-size: 1.15rem;
+			}
+
+			.hero-meta {
+				font-size: 1rem;
+				margin-top: 0.4rem;
+				color: rgba(245, 245, 255, 0.8);
+			}
+
+			.status-chip {
+				margin-top: 0.75rem;
+				font-size: 0.9rem;
+				padding: 0.35rem 0.9rem;
+				border-radius: 999px;
+				display: inline-flex;
+				border: 1px solid rgba(124, 92, 255, 0.4);
+				background: rgba(12, 14, 24, 0.6);
+				color: rgba(245, 245, 255, 0.85);
 			}
 
 			.label {
@@ -113,6 +252,47 @@ import Contact from "../components/Contact.astro";
 				display: flex;
 				gap: 0.75rem;
 				flex-wrap: wrap;
+			}
+
+			.nav-row {
+				display: flex;
+				align-items: flex-end;
+				justify-content: space-between;
+				gap: 1.5rem;
+				flex-wrap: wrap;
+			}
+
+			.language-switcher {
+				display: flex;
+				flex-direction: column;
+				gap: 0.5rem;
+				align-items: flex-start;
+			}
+
+			.language-buttons {
+				display: inline-flex;
+				gap: 0.5rem;
+			}
+
+			.language-button {
+				border: 1px solid var(--border);
+				background: rgba(12, 14, 24, 0.6);
+				color: var(--text);
+				padding: 0.4rem 0.9rem;
+				border-radius: 999px;
+				font-weight: 600;
+				cursor: pointer;
+				transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+			}
+
+			.language-button.is-active {
+				border-color: var(--accent);
+				box-shadow: 0 0 12px var(--glow);
+			}
+
+			.language-button:hover {
+				border-color: var(--accent);
+				transform: translateY(-1px);
 			}
 
 			.top-nav a {
@@ -156,6 +336,10 @@ import Contact from "../components/Contact.astro";
 				gap: 0.75rem;
 			}
 
+			.project-card {
+				position: relative;
+			}
+
 			.card-meta {
 				font-size: 0.95rem;
 				color: rgba(245, 245, 255, 0.75);
@@ -170,6 +354,95 @@ import Contact from "../components/Contact.astro";
 				text-align: center;
 				font-size: 0.9rem;
 				letter-spacing: 0.02em;
+			}
+
+			.ghost-button {
+				width: fit-content;
+				font-size: 0.95rem;
+				padding: 0.55rem 1.2rem;
+			}
+
+			.project-modal {
+				border: none;
+				padding: 0;
+				background: transparent;
+				color: inherit;
+				max-width: 640px;
+				width: 100%;
+			}
+
+			.project-modal::backdrop {
+				background: var(--overlay);
+				backdrop-filter: blur(6px);
+			}
+
+			.modal-content {
+				background: rgba(12, 14, 24, 0.95);
+				border-radius: 20px;
+				border: 1px solid rgba(124, 92, 255, 0.25);
+				box-shadow: 0 0 24px rgba(7, 9, 18, 0.8);
+				padding: 2rem;
+				display: flex;
+				flex-direction: column;
+				gap: 1.5rem;
+			}
+
+			.modal-header {
+				display: flex;
+				align-items: flex-start;
+				justify-content: space-between;
+				gap: 1.5rem;
+			}
+
+			.modal-title {
+				margin: 0.3rem 0 0;
+				font-size: 1.6rem;
+				color: var(--text);
+			}
+
+			.modal-close {
+				border: 1px solid var(--border);
+				background: rgba(12, 14, 24, 0.6);
+				color: var(--text);
+				padding: 0.45rem 0.9rem;
+				border-radius: 999px;
+				font-weight: 600;
+				cursor: pointer;
+			}
+
+			.modal-body {
+				display: flex;
+				flex-direction: column;
+				gap: 0.75rem;
+			}
+
+			.modal-heading {
+				margin-top: 0.5rem;
+			}
+
+			.modal-list {
+				list-style: disc;
+				padding-left: 1.2rem;
+				margin: 0;
+				display: grid;
+				gap: 0.4rem;
+				color: var(--muted);
+			}
+
+			.modal-tech {
+				margin-top: 0.75rem;
+				color: var(--muted);
+				display: flex;
+				gap: 0.5rem;
+				flex-wrap: wrap;
+			}
+
+			.modal-tech-label {
+				font-weight: 600;
+				color: var(--text);
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				font-size: 0.85rem;
 			}
 
 			.notes-list {
@@ -219,6 +492,7 @@ import Contact from "../components/Contact.astro";
 				font-weight: 600;
 				background: rgba(12, 14, 24, 0.6);
 				transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+				cursor: pointer;
 			}
 
 			.button:hover {
@@ -310,6 +584,14 @@ import Contact from "../components/Contact.astro";
 
 				.top-nav a {
 					padding: 0.55rem 1rem;
+				}
+
+				.nav-row {
+					align-items: flex-start;
+				}
+
+				.modal-content {
+					padding: 1.5rem;
 				}
 			}
 		</style>

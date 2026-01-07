@@ -1,38 +1,25 @@
+---
+import { content, defaultLanguage } from "../data/content";
+
+const t = content[defaultLanguage];
+---
+
 <section id="experience" class="section">
-  <p class="label">Experience</p>
-  <h2>Building across products & platforms</h2>
+  <p class="label" data-i18n="experience.label">{t.experience.label}</p>
+  <h2 data-i18n="experience.title">{t.experience.title}</h2>
   <ul class="timeline">
-    <li>
-      <h3>Software Development · Self-directed</h3>
-      <p>2021 — Present · 3+ years of learning and building project-based work.</p>
-      <ul class="timeline-details">
-        <li>Partnered with peers on builds, strengthening communication and teamwork.</li>
-        <li>Tested and debugged features to improve reliability and problem solving.</li>
-      </ul>
-    </li>
-    <li>
-      <h3>Product Engineer · Independent</h3>
-      <p>2021 — Present · Consumer apps, privacy tooling, and design systems.</p>
-    </li>
-    <li>
-      <h3>UI Developer · Studio Collective</h3>
-      <p>2019 — 2021 · Front-end builds for fintech and healthcare teams.</p>
-    </li>
-    <li>
-      <h3>Customer Service · Hospitality & Support</h3>
-      <p>2017 — 2019 · Front-line assistance in fast-paced environments.</p>
-      <ul class="timeline-details">
-        <li>Listened to customer needs to resolve requests clearly and empathetically.</li>
-        <li>Supported teammates during peak hours to keep service reliable.</li>
-      </ul>
-    </li>
-    <li>
-      <h3>Retail/Stores · Sales Associate</h3>
-      <p>2015 — 2017 · In-store sales, merchandising, and daily operations.</p>
-      <ul class="timeline-details">
-        <li>Guided shoppers with product questions using friendly communication.</li>
-        <li>Problem-solved on the floor to keep stock organized and goals on track.</li>
-      </ul>
-    </li>
+    {t.experience.items.map((item, index) => (
+      <li>
+        <h3 data-i18n={`experience.items.${index}.title`}>{item.title}</h3>
+        <p data-i18n={`experience.items.${index}.period`}>{item.period}</p>
+        {item.details.length > 0 ? (
+          <ul class="timeline-details">
+            {item.details.map((detail, detailIndex) => (
+              <li data-i18n={`experience.items.${index}.details.${detailIndex}`}>{detail}</li>
+            ))}
+          </ul>
+        ) : null}
+      </li>
+    ))}
   </ul>
 </section>

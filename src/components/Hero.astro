@@ -1,17 +1,35 @@
+---
+import { content, defaultLanguage } from "../data/content";
+
+const t = content[defaultLanguage];
+---
+
 <header class="site-header">
   <div>
-    <p class="label">Ville</p>
-    <h1>Kumina</h1>
-    <p class="headline">
-      Software developer building consumer-friendly experiences with a focus on
-      security and privacy.
-    </p>
+    <p class="label" data-i18n="hero.label">{t.hero.label}</p>
+    <h1 data-i18n="hero.name">{t.hero.name}</h1>
+    <p class="headline" data-i18n="hero.headline">{t.hero.headline}</p>
+    <p class="hero-meta" data-i18n="hero.location">{t.hero.location}</p>
+    <p class="status-chip" data-i18n="hero.status">{t.hero.status}</p>
   </div>
-  <nav aria-label="Primary" class="top-nav">
-    <a href="#about">About</a>
-    <a href="#projects">Projects</a>
-    <a href="#experience">Experience</a>
-    <a href="#notes">Notes</a>
-    <a href="#contact">Contact</a>
-  </nav>
+  <div class="nav-row">
+    <nav aria-label="Primary" class="top-nav">
+      <a href="#about" data-i18n="nav.about">{t.nav.about}</a>
+      <a href="#projects" data-i18n="nav.projects">{t.nav.projects}</a>
+      <a href="#experience" data-i18n="nav.experience">{t.nav.experience}</a>
+      <a href="#notes" data-i18n="nav.notes">{t.nav.notes}</a>
+      <a href="#contact" data-i18n="nav.contact">{t.nav.contact}</a>
+    </nav>
+    <div class="language-switcher" aria-label="Language switcher">
+      <span class="label" data-i18n="languageSwitcher.label">{t.languageSwitcher.label}</span>
+      <div class="language-buttons" role="group" aria-label="Language">
+        <button type="button" class="language-button" data-lang="en">
+          <span data-i18n="languageSwitcher.english">{t.languageSwitcher.english}</span>
+        </button>
+        <button type="button" class="language-button" data-lang="fi">
+          <span data-i18n="languageSwitcher.finnish">{t.languageSwitcher.finnish}</span>
+        </button>
+      </div>
+    </div>
+  </div>
 </header>
