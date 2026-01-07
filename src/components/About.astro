@@ -1,10 +1,12 @@
+---
+import { content, defaultLanguage } from "../data/content";
+
+const t = content[defaultLanguage];
+---
+
 <section id="about" class="section">
-  <p class="label">About</p>
-  <h2>Designing thoughtful, secure product experiences.</h2>
-  <p>
-    I focus on privacy-first consumer apps, building clear interfaces and reliable
-    foundations that help teams ship with confidence. I care about accessibility,
-    performance, and reducing friction for everyday users.
-  </p>
+  <p class="label" data-i18n="about.label">{t.about.label}</p>
+  <h2 data-i18n="about.title">{t.about.title}</h2>
+  <p data-i18n="about.body">{t.about.body}</p>
   <div class="glow-divider" aria-hidden="true"></div>
 </section>
