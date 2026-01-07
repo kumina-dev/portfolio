@@ -1,33 +1,46 @@
 ---
-import { content, defaultLanguage } from "../data/content";
+import { getLocalizedString } from "../utils/i18n";
 
-const t = content[defaultLanguage];
+const t = getLocalizedString;
+const heroLabelKey = "hero.label";
+const heroNameKey = "hero.name";
+const heroHeadlineKey = "hero.headline";
+const heroLocationKey = "hero.location";
+const heroStatusKey = "hero.status";
+const navAboutKey = "nav.about";
+const navProjectsKey = "nav.projects";
+const navExperienceKey = "nav.experience";
+const navNotesKey = "nav.notes";
+const navContactKey = "nav.contact";
+const languageLabelKey = "languageSwitcher.label";
+const languageEnglishKey = "languageSwitcher.english";
+const languageFinnishKey = "languageSwitcher.finnish";
 ---
 
 <header class="site-header">
   <div>
-    <p class="label" data-i18n="hero.label">{t.hero.label}</p>
-    <h1 data-i18n="hero.name">{t.hero.name}</h1>
-    <p class="headline" data-i18n="hero.headline">{t.hero.headline}</p>
-    <p class="hero-meta" data-i18n="hero.location">{t.hero.location}</p>
-    <p class="status-chip" data-i18n="hero.status">{t.hero.status}</p>
+    <p class="label" data-i18n={heroLabelKey}>{t(heroLabelKey)}</p>
+    <h1 data-i18n={heroNameKey}>{t(heroNameKey)}</h1>
+    <p class="headline" data-i18n={heroHeadlineKey}>{t(heroHeadlineKey)}</p>
+    <p class="hero-meta" data-i18n={heroLocationKey}>{t(heroLocationKey)}</p>
+    <p class="status-chip" data-i18n={heroStatusKey}>{t(heroStatusKey)}</p>
   </div>
   <div class="nav-row">
     <nav aria-label="Primary" class="top-nav">
-      <a href="#about" data-i18n="nav.about">{t.nav.about}</a>
-      <a href="#projects" data-i18n="nav.projects">{t.nav.projects}</a>
-      <a href="#experience" data-i18n="nav.experience">{t.nav.experience}</a>
-      <a href="#notes" data-i18n="nav.notes">{t.nav.notes}</a>
-      <a href="#contact" data-i18n="nav.contact">{t.nav.contact}</a>
+      <a href="#about" data-i18n={navAboutKey}>{t(navAboutKey)}</a>
+      <a href="#projects" data-i18n={navProjectsKey}>{t(navProjectsKey)}</a>
+      <a href="#experience" data-i18n={navExperienceKey}>{t(navExperienceKey)}</a>
+      <a href="#notes" data-i18n={navNotesKey}>{t(navNotesKey)}</a>
+      <a href="#contact" data-i18n={navContactKey}>{t(navContactKey)}</a>
     </nav>
     <div class="language-switcher" aria-label="Language switcher">
-      <span class="label" data-i18n="languageSwitcher.label">{t.languageSwitcher.label}</span>
+      <span class="label" data-i18n={languageLabelKey}>{t(languageLabelKey)}</span>
       <div class="language-buttons" role="group" aria-label="Language">
         <button type="button" class="language-button" data-lang="en">
-          <span data-i18n="languageSwitcher.english">{t.languageSwitcher.english}</span>
+          <span data-i18n={languageEnglishKey}>{t(languageEnglishKey)}</span>
         </button>
         <button type="button" class="language-button" data-lang="fi">
-          <span data-i18n="languageSwitcher.finnish">{t.languageSwitcher.finnish}</span>
+          <span data-i18n={languageFinnishKey}>{t(languageFinnishKey)}</span>
         </button>
       </div>
     </div>
