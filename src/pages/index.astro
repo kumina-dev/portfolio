@@ -17,17 +17,18 @@ const t = content[defaultLanguage];
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{t.meta.title}</title>
-	</head>
-	<body>
-		<main>
-			<Hero />
-			<About />
-			<Projects />
-			<Experience />
-			<Notes />
-			<Contact />
-		</main>
 		<script is:inline define:vars={{ content, defaultLanguage }}>
+			const contentData = content;
+			const supportedLanguages = Object.keys(contentData);
+			const storedLanguage = localStorage.getItem("language");
+			const resolvedLanguage = supportedLanguages.includes(storedLanguage)
+				? storedLanguage
+				: defaultLanguage;
+			document.documentElement.lang = resolvedLanguage;
+			document.title = contentData[resolvedLanguage]?.meta?.title ?? document.title;
+			window.__preferredLanguage = resolvedLanguage;
+		</script>
+		<script is:inline type="module" define:vars={{ content, defaultLanguage }}>
 			const contentData = content;
 			const defaultLanguageValue = defaultLanguage;
 			const languageButtons = document.querySelectorAll("[data-lang]");
@@ -108,8 +109,8 @@ const t = content[defaultLanguage];
 				modal.close();
 			};
 
-			const savedLanguage = localStorage.getItem("language");
-			applyLanguage(savedLanguage || defaultLanguageValue);
+			const savedLanguage = window.__preferredLanguage ?? defaultLanguageValue;
+			applyLanguage(savedLanguage);
 
 			languageButtons.forEach((button) => {
 				button.addEventListener("click", () => {
@@ -137,6 +138,16 @@ const t = content[defaultLanguage];
 				}
 			});
 		</script>
+	</head>
+	<body>
+		<main>
+			<Hero />
+			<About />
+			<Projects />
+			<Experience />
+			<Notes />
+			<Contact />
+		</main>
 		<style is:global>
 			:root {
 				color-scheme: dark;
