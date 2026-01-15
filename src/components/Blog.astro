@@ -1,0 +1,23 @@
+---
+import { getCollection } from "astro:content";
+import { content, defaultLanguage } from "../data/content";
+
+const t = content[defaultLanguage];
+const posts = await getCollection("blog");
+const sortedPosts = posts
+  .slice()
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<section id="blog" class="section">
+  <p class="label" data-i18n="blog.label">{t.blog.label}</p>
+  <h2 data-i18n="blog.title">{t.blog.title}</h2>
+  <div class="blog-list">
+    {sortedPosts.map((post) => (
+      <article data-locale={post.data.locale} hidden={post.data.locale !== defaultLanguage}>
+        <h3>{post.data.title}</h3>
+        <p>{post.data.summary}</p>
+      </article>
+    ))}
+  </div>
+</section>

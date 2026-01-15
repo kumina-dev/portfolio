@@ -10,7 +10,7 @@ export const content = {
       skills: "Skills",
       projects: "Projects",
       experience: "Experience",
-      notes: "Notes",
+      blog: "Blog",
       contact: "Contact",
     },
     hero: {
@@ -134,23 +134,9 @@ export const content = {
         },
       ],
     },
-    notes: {
-      label: "Notes",
-      title: "Short updates from the lab",
-      items: [
-        {
-          title: "2024-08 — Scheduling security",
-          body: "Hardened booking logic to prevent collisions and enforce availability rules.",
-        },
-        {
-          title: "2024-06 — Privacy research",
-          body: "Reviewed privacy-first flows and data minimization patterns.",
-        },
-        {
-          title: "2024-04 — UI experiments",
-          body: "Tested neon-inspired layouts for fast-scanning portfolios.",
-        },
-      ],
+    blog: {
+      label: "Blog",
+      title: "Latest field notes",
     },
     contact: {
       label: "Contact",
@@ -176,7 +162,7 @@ export const content = {
       skills: "Taidot",
       projects: "Projektit",
       experience: "Kokemus",
-      notes: "Muistiinpanot",
+      blog: "Blogi",
       contact: "Yhteys",
     },
     hero: {
@@ -300,23 +286,9 @@ export const content = {
         },
       ],
     },
-    notes: {
-      label: "Muistiinpanot",
-      title: "Lyhyet päivitykset labrasta",
-      items: [
-        {
-          title: "2024-08 — Varauslogiikka",
-          body: "Vahvistin varausten logiikan ja estin päällekkäisyydet.",
-        },
-        {
-          title: "2024-06 — Yksityisyystutkimus",
-          body: "Kävin läpi yksityisyyslähtöisiä käyttömalleja ja datan minimointia.",
-        },
-        {
-          title: "2024-04 — UI-kokeilut",
-          body: "Testasin neon-henkisiä asetteluja nopeaan hahmottamiseen.",
-        },
-      ],
+    blog: {
+      label: "Blogi",
+      title: "Tuoreimmat kenttämuistiinpanot",
     },
     contact: {
       label: "Yhteys",

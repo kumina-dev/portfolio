@@ -4,7 +4,7 @@ import About from "../components/About.astro";
 import Skills from "../components/Skills.astro";
 import Projects from "../components/Projects.astro";
 import Experience from "../components/Experience.astro";
-import Notes from "../components/Notes.astro";
+import Blog from "../components/Blog.astro";
 import Contact from "../components/Contact.astro";
 import { content, defaultLanguage } from "../data/content";
 
@@ -29,13 +29,14 @@ const t = content[defaultLanguage];
 			document.title = contentData[resolvedLanguage]?.meta?.title ?? document.title;
 			window.__preferredLanguage = resolvedLanguage;
 		</script>
-		<script is:inline type="module" define:vars={{ content, defaultLanguage }}>
-			const contentData = content;
-			const defaultLanguageValue = defaultLanguage;
-			const languageButtons = document.querySelectorAll("[data-lang]");
-			const i18nElements = document.querySelectorAll("[data-i18n]");
-			const modal = document.querySelector("#project-modal");
-			const openButtons = document.querySelectorAll("[data-project-open]");
+			<script is:inline type="module" define:vars={{ content, defaultLanguage }}>
+				const contentData = content;
+				const defaultLanguageValue = defaultLanguage;
+				const languageButtons = document.querySelectorAll("[data-lang]");
+				const i18nElements = document.querySelectorAll("[data-i18n]");
+				const localizedBlocks = document.querySelectorAll("[data-locale]");
+				const modal = document.querySelector("#project-modal");
+				const openButtons = document.querySelectorAll("[data-project-open]");
 			const modalClose = modal?.querySelector("[data-modal-close]");
 			const modalTitle = modal?.querySelector("[data-modal='title']");
 			const modalSummary = modal?.querySelector("[data-modal='summary']");
@@ -65,11 +66,11 @@ const t = content[defaultLanguage];
 				});
 			};
 
-			const applyLanguage = (lang) => {
-				activeLanguage = lang;
-				document.documentElement.lang = lang;
-				document.title = contentData[lang]?.meta?.title ?? document.title;
-				i18nElements.forEach((el) => {
+				const applyLanguage = (lang) => {
+					activeLanguage = lang;
+					document.documentElement.lang = lang;
+					document.title = contentData[lang]?.meta?.title ?? document.title;
+					i18nElements.forEach((el) => {
 					const key = el.dataset.i18n;
 					if (!key) return;
 					const value = getValue(lang, key);
@@ -85,10 +86,15 @@ const t = content[defaultLanguage];
 					if (el.dataset.i18nMode !== "attr") {
 						el.textContent = value;
 					}
-				});
-				languageButtons.forEach((button) => {
-					const isActive = button.dataset.lang === lang;
-					button.setAttribute("aria-pressed", String(isActive));
+					});
+					localizedBlocks.forEach((el) => {
+						const locale = el.dataset.locale;
+						if (!locale) return;
+						el.hidden = locale !== lang;
+					});
+					languageButtons.forEach((button) => {
+						const isActive = button.dataset.lang === lang;
+						button.setAttribute("aria-pressed", String(isActive));
 					button.classList.toggle("is-active", isActive);
 				});
 				if (activeProjectId && modal?.open) {
@@ -147,7 +153,7 @@ const t = content[defaultLanguage];
 			<Skills />
 			<Projects />
 			<Experience />
-			<Notes />
+			<Blog />
 			<Contact />
 		</main>
 		<style is:global>
@@ -575,12 +581,12 @@ const t = content[defaultLanguage];
 				font-size: 0.85rem;
 			}
 
-			.notes-list {
+			.blog-list {
 				display: grid;
 				gap: 1rem;
 			}
 
-			.notes-list article {
+			.blog-list article {
 				padding: 1rem 1.25rem;
 				border-radius: 16px;
 				background: rgba(8, 12, 24, 0.7);
