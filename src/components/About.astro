@@ -1,15 +1,25 @@
 ---
+import { content, defaultLanguage } from "../data/content"; 
 import { getLocalizedString } from "../utils/i18n";
 
 const t = getLocalizedString;
 const aboutLabelKey = "about.label";
 const aboutTitleKey = "about.title";
 const aboutBodyKey = "about.body";
+const aboutCardsKey = "about.cards";
 ---
 
 <section id="about" class="section">
   <p class="label" data-i18n={aboutLabelKey}>{t(aboutLabelKey)}</p>
   <h2 data-i18n={aboutTitleKey}>{t(aboutTitleKey)}</h2>
   <p data-i18n={aboutBodyKey}>{t(aboutBodyKey)}</p>
+  <div class="card-grid">
+    {content[defaultLanguage].about.cards.map((card, index) => (
+      <article class="card">
+        <h3 data-i18n={`${aboutCardsKey}.${index}.title`}>{card.title}</h3>
+        <p data-i18n={`${aboutCardsKey}.${index}.body`}>{card.body}</p>
+      </article>
+    ))}
+  </div>
   <div class="glow-divider" aria-hidden="true"></div>
 </section>

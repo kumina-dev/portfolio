@@ -1,0 +1,49 @@
+<svg width="640" height="800" viewBox="0 0 640 800" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Headshot placeholder</title>
+  <desc id="desc">Neon gradient headshot placeholder for portfolio hero image.</desc>
+  <rect width="640" height="800" rx="40" fill="url(#bg)" />
+  <circle cx="320" cy="280" r="150" fill="url(#glow)" />
+  <path
+    d="M140 760C140 660 212 580 320 580C428 580 500 660 500 760V800H140V760Z"
+    fill="url(#body)"
+  />
+  <circle cx="320" cy="280" r="120" fill="url(#face)" />
+  <path
+    d="M200 318C220 240 264 210 320 210C376 210 420 240 440 318C430 350 406 382 320 382C234 382 210 350 200 318Z"
+    fill="rgba(5, 6, 12, 0.75)"
+  />
+  <path
+    d="M240 470C260 430 290 410 320 410C350 410 380 430 400 470V520H240V470Z"
+    fill="rgba(8, 12, 24, 0.75)"
+  />
+  <path
+    d="M224 286C246 256 274 240 320 240C366 240 394 256 416 286"
+    stroke="rgba(255, 255, 255, 0.5)"
+    stroke-width="6"
+    stroke-linecap="round"
+  />
+  <path
+    d="M250 310C265 300 290 295 320 295C350 295 375 300 390 310"
+    stroke="rgba(255, 255, 255, 0.5)"
+    stroke-width="6"
+    stroke-linecap="round"
+  />
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="640" y2="800" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0A0C1C" />
+      <stop offset="1" stop-color="#12061E" />
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(320 260) rotate(90) scale(200)">
+      <stop stop-color="#55F2FF" stop-opacity="0.65" />
+      <stop offset="1" stop-color="#9B5BFF" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="face" x1="200" y1="200" x2="440" y2="440" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F5F7FF" stop-opacity="0.9" />
+      <stop offset="1" stop-color="#A9B2D8" stop-opacity="0.9" />
+    </linearGradient>
+    <linearGradient id="body" x1="140" y1="580" x2="500" y2="800" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1A1D35" />
+      <stop offset="1" stop-color="#0B0E1C" />
+    </linearGradient>
+  </defs>
+</svg>
