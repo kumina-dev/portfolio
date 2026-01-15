@@ -23,19 +23,21 @@ const itemKey = (index: number, field: string) => `projects.items.${index}.${fie
       <article class="card project-card" data-project-id={project.id}>
         <h3 data-i18n={itemKey(index, "title")}>{i18n(itemKey(index, "title"))}</h3>
         <p data-i18n={itemKey(index, "summary")}>{i18n(itemKey(index, "summary"))}</p>
+        <div class="project-media">
+          <div
+            class="project-frame"
+            data-i18n={itemKey(index, "screenshotLabel")}
+            data-i18n-attr="aria-label"
+            aria-label={project.screenshotLabel}
+          >
+            <span class="project-frame-label">{i18n(itemKey(index, "screenshotLabel"))}</span>
+          </div>
+        </div>
         <p class="card-meta">
           <span data-i18n={projectsTechLabelKey}>{i18n(projectsTechLabelKey)}</span>:{" "}
           <span data-i18n={itemKey(index, "tech")}>{i18n(itemKey(index, "tech"))}</span>
         </p>
-        <div
-          class="screenshot-placeholder"
-          data-i18n={itemKey(index, "screenshotLabel")}
-          data-i18n-attr="aria-label"
-          aria-label={project.screenshotLabel}
-        >
-          {i18n(itemKey(index, "screenshotLabel"))}
-        </div>
-        <button class="button ghost-button" type="button" data-project-open={project.id}>
+        <button class="button ghost ghost-button" type="button" data-project-open={project.id}>
           <span data-i18n={projectsOpenButtonKey}>{i18n(projectsOpenButtonKey)}</span>
         </button>
       </article>

@@ -1,0 +1,27 @@
+---
+import { content, defaultLanguage } from "../data/content";
+
+const t = content[defaultLanguage];
+---
+
+<section id="skills" class="section">
+  <p class="label" data-i18n="skills.label">{t.skills.label}</p>
+  <h2 data-i18n="skills.title">{t.skills.title}</h2>
+  <div class="skills-grid">
+    {t.skills.items.map((skill, index) => (
+      <div class="skill-card">
+        <div class="skill-header">
+          <h3 data-i18n={`skills.items.${index}.name`}>{skill.name}</h3>
+          <span class="skill-level" data-i18n={`skills.items.${index}.level`}>{skill.level}</span>
+        </div>
+        <div class="skill-track" role="presentation">
+          <div
+            class="skill-fill"
+            style={`--skill-level: ${skill.level}`}
+            aria-hidden="true"
+          ></div>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

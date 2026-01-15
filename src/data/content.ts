@@ -3,31 +3,72 @@ export const defaultLanguage = "en" as const;
 export const content = {
   en: {
     meta: {
-      title: "Kumina | Portfolio",
+      title: "Kumina | Security Portfolio",
     },
     nav: {
       about: "About",
+      skills: "Skills",
       projects: "Projects",
       experience: "Experience",
-      notes: "Notes",
+      blog: "Blog",
       contact: "Contact",
     },
     hero: {
-      label: "Ville",
-      name: "Kumina",
-      headline: "Software developer focused on consumer-friendly, privacy-first products.",
+      label: "Security-Focused Web Designer & Developer",
+      name: "Hi, I’m Kumina.",
+      headline:
+        "I build secure, modern, and responsive web experiences with a focus on privacy and user protection.",
       location: "Based in Tampere, Finland",
-      status: "Beginner → Intermediate (3+ years of learning by building)",
+      status: "Available for freelance, remote, and collaborative projects.",
+      ctaPrimary: "View my work",
+      ctaSecondary: "Contact me",
+      headshotAlt: "Portrait of Kumina",
     },
     about: {
       label: "About",
-      title: "Building clear, secure experiences for everyday users.",
+      title: "Designing confident, privacy-first experiences.",
       body:
-        "I enjoy creating consumer software with a strong focus on privacy and usability. I care about clean interfaces, performance, and thoughtful details that help people feel confident using the product.",
+        "I focus on shipping digital products that feel safe, fast, and trustworthy. My process blends security best practices with modern UI engineering so people can use the product without second-guessing it.",
+      cards: [
+        {
+          title: "Security-minded UX",
+          body: "From threat modeling to privacy-first patterns, I design interfaces that reinforce trust.",
+        },
+        {
+          title: "Frontend craftsmanship",
+          body: "I build responsive, accessible interfaces with crisp interactions and strong performance.",
+        },
+        {
+          title: "Product-ready delivery",
+          body: "Clear documentation, pragmatic architecture, and a smooth handoff for teams.",
+        },
+      ],
+    },
+    skills: {
+      label: "Skills",
+      title: "What I bring to the table",
+      items: [
+        {
+          name: "HTML & CSS",
+          level: "92%",
+        },
+        {
+          name: "JavaScript / TypeScript",
+          level: "88%",
+        },
+        {
+          name: "React & Astro",
+          level: "84%",
+        },
+        {
+          name: "Web Security",
+          level: "90%",
+        },
+      ],
     },
     projects: {
       label: "Projects",
-      title: "Selected work",
+      title: "Selected cyber-ready work",
       modalLabel: "Project details",
       openButton: "View details",
       closeButton: "Close",
@@ -39,26 +80,26 @@ export const content = {
           id: "welding",
           title: "Welding Appointment System",
           summary:
-            "Built a scheduling tool for welding students to reserve cubicles, pick dates, and manage workshop flow.",
+            "Built a scheduling tool for welding students to reserve cubicles, pick dates, and keep the workshop flow secure.",
           tech: "React, TypeScript, Node.js, PostgreSQL",
           screenshotLabel: "Welding Appointment System screenshot placeholder",
           highlights: [
             "Students pick a cubicle, date, and time in a single flow.",
             "Reduced double-booking with clear availability rules.",
-            "Simple admin view for supervisors to monitor capacity.",
+            "Admin visibility with role-aware views and activity logging.",
           ],
         },
         {
           id: "portfolio",
           title: "Personal Portfolio",
           summary:
-            "A modern, cyberpunk-inspired portfolio designed to present my work and make contacting me easy.",
+            "A neon-lit portfolio inspired by sci-fi interfaces, designed to surface projects quickly.",
           tech: "Astro, JavaScript, CSS",
           screenshotLabel: "Personal Portfolio screenshot placeholder",
           highlights: [
-            "Minimal layout with strong typography for fast scanning.",
-            "Projects open in a modal for focused reading.",
-            "Bilingual content to connect with local and international audiences.",
+            "Layered glass panels with subtle neon glow.",
+            "Quick-scan sections with clear hierarchy.",
+            "Bilingual content to reach local and international audiences.",
           ],
         },
       ],
@@ -93,30 +134,16 @@ export const content = {
         },
       ],
     },
-    notes: {
-      label: "Notes",
-      title: "Short updates",
-      items: [
-        {
-          title: "2024-08 — Welding scheduler",
-          body: "Built a booking flow for welding students with clear time slots.",
-        },
-        {
-          title: "2024-06 — Privacy research",
-          body: "Reviewed consumer security patterns and data minimization ideas.",
-        },
-        {
-          title: "2024-04 — UI experiments",
-          body: "Tested new layouts for fast-scanning portfolios.",
-        },
-      ],
+    blog: {
+      label: "Blog",
+      title: "Latest field notes",
     },
     contact: {
       label: "Contact",
-      title: "Let’s build something together",
+      title: "Let’s work together",
       body:
-        "If you have a project in mind or want to collaborate, feel free to reach out.",
-      cta: "Let’s build something — email me.",
+        "Have a project in mind? Let’s build a secure, user-friendly digital experience together.",
+      cta: "Hire me",
       email: "hello@kumina.dev",
       socialLabel: "Social links",
     },
@@ -128,32 +155,72 @@ export const content = {
   },
   fi: {
     meta: {
-      title: "Kumina | Portfolio",
+      title: "Kumina | Security Portfolio",
     },
     nav: {
       about: "Tietoja",
+      skills: "Taidot",
       projects: "Projektit",
       experience: "Kokemus",
-      notes: "Muistiinpanot",
+      blog: "Blogi",
       contact: "Yhteys",
     },
     hero: {
-      label: "Ville",
-      name: "Kumina",
+      label: "Tietoturvaan keskittynyt web-suunnittelija ja kehittäjä",
+      name: "Hei, olen Kumina.",
       headline:
-        "Ohjelmistokehittäjä, joka keskittyy kuluttajaystävällisiin ja tietoturvallisiin tuotteisiin.",
+        "Rakennan moderneja, responsiivisia ja tietoturvallisia verkkokokemuksia, joissa yksityisyys on etusijalla.",
       location: "Tampere, Suomi",
-      status: "Aloittelija → Keskitaso (3+ vuotta oppimista tekemällä)",
+      status: "Saatavilla freelance- ja yhteistyöprojekteihin.",
+      ctaPrimary: "Katso työni",
+      ctaSecondary: "Ota yhteyttä",
+      headshotAlt: "Kumina muotokuva",
     },
     about: {
       label: "Tietoja",
-      title: "Rakennan selkeitä ja turvallisia kokemuksia arjen käyttäjille.",
+      title: "Selkeitä, luotettavia ja yksityisyyslähtöisiä kokemuksia.",
       body:
-        "Pidän kuluttajasovellusten rakentamisesta, joissa yksityisyys ja käytettävyys ovat etusijalla. Arvostan siistejä käyttöliittymiä, suorituskykyä ja pieniä yksityiskohtia, jotka lisäävät luottamusta.",
+        "Tavoitteeni on toimittaa tuotteita, jotka tuntuvat turvallisilta, nopeilta ja luotettavilta. Yhdistän tietoturvakäytännöt ja modernin UI-kehityksen, jotta käyttäjät voivat luottaa kokemukseen.",
+      cards: [
+        {
+          title: "Tietoturva UX:ssa",
+          body: "Suunnittelen luottamusta vahvistavia käyttöliittymiä tietoturva mielessä.",
+        },
+        {
+          title: "Frontend-laatu",
+          body: "Rakennan saavutettavia, responsiivisia ja sulavasti toimivia käyttöliittymiä.",
+        },
+        {
+          title: "Tuotantovalmis lopputulos",
+          body: "Selkeä dokumentaatio, käytännöllinen arkkitehtuuri ja sujuva handoff.",
+        },
+      ],
+    },
+    skills: {
+      label: "Taidot",
+      title: "Mitä tuon mukanani",
+      items: [
+        {
+          name: "HTML & CSS",
+          level: "92%",
+        },
+        {
+          name: "JavaScript / TypeScript",
+          level: "88%",
+        },
+        {
+          name: "React & Astro",
+          level: "84%",
+        },
+        {
+          name: "Web-tietoturva",
+          level: "90%",
+        },
+      ],
     },
     projects: {
       label: "Projektit",
-      title: "Valikoidut työt",
+      title: "Valikoidut cyber-työt",
       modalLabel: "Projektin tiedot",
       openButton: "Näytä tiedot",
       closeButton: "Sulje",
@@ -165,25 +232,25 @@ export const content = {
           id: "welding",
           title: "Hitsausajanvarausjärjestelmä",
           summary:
-            "Rakensin ajanvarausjärjestelmän hitsausopiskelijoille: koppi, päivä ja aika yhdessä näkymässä.",
+            "Rakensin ajanvarausjärjestelmän hitsausopiskelijoille: koppi, päivä ja aika yhdessä näkymässä, tietoturva huomioiden.",
           tech: "React, TypeScript, Node.js, PostgreSQL",
           screenshotLabel: "Hitsausajanvarausjärjestelmän kuvapaikka",
           highlights: [
             "Opiskelija valitsee kopin, päivän ja ajan yhdellä kertaa.",
             "Tuplavaraukset vähenevät selkeillä saatavuussäännöillä.",
-            "Yksinkertainen ylläpitonäkymä kapasiteetin seurantaan.",
+            "Ylläpitäjälle näkyvyys ja lokitus käyttöön.",
           ],
         },
         {
           id: "portfolio",
           title: "Henkilökohtainen portfolio",
           summary:
-            "Moderni, cyberpunk-henkinen portfolio, joka esittelee työni ja tekee yhteydenotosta helppoa.",
+            "Neon-henkinen portfolio, joka esittelee työni nopeasti ja selkeästi.",
           tech: "Astro, JavaScript, CSS",
           screenshotLabel: "Portfolio-sivun kuvapaikka",
           highlights: [
-            "Minimaalinen asettelu ja selkeä typografia.",
-            "Projektit avautuvat modaalissa keskittynyttä lukemista varten.",
+            "Kerrostetut lasipaneelit ja neon-hehku.",
+            "Nopeasti hahmotettava osiointi.",
             "Kaksikielinen sisältö paikalliselle ja kansainväliselle yleisölle.",
           ],
         },
@@ -219,30 +286,16 @@ export const content = {
         },
       ],
     },
-    notes: {
-      label: "Muistiinpanot",
-      title: "Lyhyet päivitykset",
-      items: [
-        {
-          title: "2024-08 — Hitsausvaraukset",
-          body: "Tein varaustyökalun hitsausopiskelijoille selkeillä ajoilla.",
-        },
-        {
-          title: "2024-06 — Yksityisyystutkimus",
-          body: "Kävin läpi kuluttajan tietoturvakäytäntöjä ja datan minimointia.",
-        },
-        {
-          title: "2024-04 — UI-kokeilut",
-          body: "Testasin uusia asetteluita portfolioiden nopeaan hahmottamiseen.",
-        },
-      ],
+    blog: {
+      label: "Blogi",
+      title: "Tuoreimmat kenttämuistiinpanot",
     },
     contact: {
       label: "Yhteys",
-      title: "Rakennetaan jotain yhdessä",
+      title: "Tehdään töitä yhdessä",
       body:
-        "Jos sinulla on projekti mielessä tai haluat tehdä yhteistyötä, ota yhteyttä.",
-      cta: "Rakennetaan jotain — lähetä sähköposti.",
+        "Onko projekti mielessä? Rakennetaan yhdessä turvallinen ja käyttäjäystävällinen kokemus.",
+      cta: "Palkkaa minut",
       email: "hello@kumina.dev",
       socialLabel: "Sosiaalilinkit",
     },

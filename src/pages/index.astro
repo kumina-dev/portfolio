@@ -1,9 +1,10 @@
 ---
 import Hero from "../components/Hero.astro";
 import About from "../components/About.astro";
+import Skills from "../components/Skills.astro";
 import Projects from "../components/Projects.astro";
 import Experience from "../components/Experience.astro";
-import Notes from "../components/Notes.astro";
+import Blog from "../components/Blog.astro";
 import Contact from "../components/Contact.astro";
 import { content, defaultLanguage } from "../data/content";
 
@@ -28,13 +29,14 @@ const t = content[defaultLanguage];
 			document.title = contentData[resolvedLanguage]?.meta?.title ?? document.title;
 			window.__preferredLanguage = resolvedLanguage;
 		</script>
-		<script is:inline type="module" define:vars={{ content, defaultLanguage }}>
-			const contentData = content;
-			const defaultLanguageValue = defaultLanguage;
-			const languageButtons = document.querySelectorAll("[data-lang]");
-			const i18nElements = document.querySelectorAll("[data-i18n]");
-			const modal = document.querySelector("#project-modal");
-			const openButtons = document.querySelectorAll("[data-project-open]");
+			<script is:inline type="module" define:vars={{ content, defaultLanguage }}>
+				const contentData = content;
+				const defaultLanguageValue = defaultLanguage;
+				const languageButtons = document.querySelectorAll("[data-lang]");
+				const i18nElements = document.querySelectorAll("[data-i18n]");
+				const localizedBlocks = document.querySelectorAll("[data-locale]");
+				const modal = document.querySelector("#project-modal");
+				const openButtons = document.querySelectorAll("[data-project-open]");
 			const modalClose = modal?.querySelector("[data-modal-close]");
 			const modalTitle = modal?.querySelector("[data-modal='title']");
 			const modalSummary = modal?.querySelector("[data-modal='summary']");
@@ -64,11 +66,11 @@ const t = content[defaultLanguage];
 				});
 			};
 
-			const applyLanguage = (lang) => {
-				activeLanguage = lang;
-				document.documentElement.lang = lang;
-				document.title = contentData[lang]?.meta?.title ?? document.title;
-				i18nElements.forEach((el) => {
+				const applyLanguage = (lang) => {
+					activeLanguage = lang;
+					document.documentElement.lang = lang;
+					document.title = contentData[lang]?.meta?.title ?? document.title;
+					i18nElements.forEach((el) => {
 					const key = el.dataset.i18n;
 					if (!key) return;
 					const value = getValue(lang, key);
@@ -84,10 +86,15 @@ const t = content[defaultLanguage];
 					if (el.dataset.i18nMode !== "attr") {
 						el.textContent = value;
 					}
-				});
-				languageButtons.forEach((button) => {
-					const isActive = button.dataset.lang === lang;
-					button.setAttribute("aria-pressed", String(isActive));
+					});
+					localizedBlocks.forEach((el) => {
+						const locale = el.dataset.locale;
+						if (!locale) return;
+						el.hidden = locale !== lang;
+					});
+					languageButtons.forEach((button) => {
+						const isActive = button.dataset.lang === lang;
+						button.setAttribute("aria-pressed", String(isActive));
 					button.classList.toggle("is-active", isActive);
 				});
 				if (activeProjectId && modal?.open) {
@@ -143,22 +150,26 @@ const t = content[defaultLanguage];
 		<main>
 			<Hero />
 			<About />
+			<Skills />
 			<Projects />
 			<Experience />
-			<Notes />
+			<Blog />
 			<Contact />
 		</main>
 		<style is:global>
 			:root {
 				color-scheme: dark;
-				--bg: #0b0c12;
-				--surface: rgba(19, 21, 32, 0.75);
-				--accent: #7c5cff;
-				--text: #f5f5ff;
-				--muted: #b6bdd9;
-				--border: rgba(124, 92, 255, 0.4);
-				--glow: rgba(124, 92, 255, 0.35);
-				--overlay: rgba(9, 10, 18, 0.75);
+				--bg: #05060c;
+				--surface: rgba(13, 16, 30, 0.82);
+				--surface-strong: rgba(9, 12, 24, 0.9);
+				--accent: #55f2ff;
+				--accent-strong: #9b5bff;
+				--accent-pink: #ff4fd8;
+				--text: #f5f7ff;
+				--muted: #a9b2d8;
+				--border: rgba(85, 242, 255, 0.35);
+				--glow: rgba(85, 242, 255, 0.35);
+				--overlay: rgba(5, 6, 12, 0.85);
 			}
 
 			* {
@@ -168,7 +179,8 @@ const t = content[defaultLanguage];
 			body {
 				margin: 0;
 				min-height: 100vh;
-				background: radial-gradient(circle at top, rgba(124, 92, 255, 0.15), transparent 45%),
+				background: radial-gradient(circle at top, rgba(155, 91, 255, 0.18), transparent 45%),
+					radial-gradient(circle at 25% 15%, rgba(85, 242, 255, 0.12), transparent 35%),
 					var(--bg);
 				color: var(--text);
 				font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
@@ -179,13 +191,13 @@ const t = content[defaultLanguage];
 			}
 
 			main {
-				max-width: 880px;
+				max-width: 1040px;
 				width: 100%;
 				background: var(--surface);
-				border: 1px solid rgba(124, 92, 255, 0.2);
-				box-shadow: 0 0 30px rgba(7, 9, 18, 0.9);
-				border-radius: 24px;
-				padding: 3rem;
+				border: 1px solid rgba(85, 242, 255, 0.2);
+				box-shadow: 0 0 40px rgba(6, 8, 18, 0.9), inset 0 0 30px rgba(85, 242, 255, 0.08);
+				border-radius: 28px;
+				padding: 3.5rem;
 				backdrop-filter: blur(12px);
 				display: flex;
 				flex-direction: column;
@@ -196,6 +208,56 @@ const t = content[defaultLanguage];
 				display: flex;
 				flex-direction: column;
 				gap: 2rem;
+			}
+
+			.hero-grid {
+				display: grid;
+				grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+				gap: 2.5rem;
+				align-items: center;
+			}
+
+			.hero-portrait {
+				position: relative;
+				border-radius: 20px;
+				padding: 0.35rem;
+				background: linear-gradient(135deg, rgba(85, 242, 255, 0.5), rgba(255, 79, 216, 0.4));
+				box-shadow: 0 0 24px rgba(85, 242, 255, 0.3);
+				aspect-ratio: 4 / 5;
+				max-width: 320px;
+				width: 100%;
+				margin: 0 auto;
+			}
+
+			.hero-portrait img {
+				display: block;
+				width: 100%;
+				height: 100%;
+				border-radius: 16px;
+				object-fit: cover;
+				background: rgba(6, 8, 18, 0.9);
+			}
+
+			.hero-portrait-glow {
+				position: absolute;
+				inset: 12px;
+				border-radius: 18px;
+				border: 1px solid rgba(85, 242, 255, 0.35);
+				box-shadow: 0 0 24px rgba(85, 242, 255, 0.4);
+				pointer-events: none;
+			}
+
+			.hero-copy {
+				display: flex;
+				flex-direction: column;
+				gap: 0.6rem;
+			}
+
+			.hero-actions {
+				display: flex;
+				gap: 1rem;
+				flex-wrap: wrap;
+				margin-top: 1rem;
 			}
 
 			h1 {
@@ -231,13 +293,14 @@ const t = content[defaultLanguage];
 			}
 
 			.headline {
-				font-size: 1.15rem;
+				font-size: 1.2rem;
+				color: rgba(245, 247, 255, 0.92);
 			}
 
 			.hero-meta {
 				font-size: 1rem;
 				margin-top: 0.4rem;
-				color: rgba(245, 245, 255, 0.8);
+				color: rgba(169, 178, 216, 0.9);
 			}
 
 			.status-chip {
@@ -246,8 +309,8 @@ const t = content[defaultLanguage];
 				padding: 0.35rem 0.9rem;
 				border-radius: 999px;
 				display: inline-flex;
-				border: 1px solid rgba(124, 92, 255, 0.4);
-				background: rgba(12, 14, 24, 0.6);
+				border: 1px solid rgba(85, 242, 255, 0.4);
+				background: rgba(6, 8, 18, 0.7);
 				color: rgba(245, 245, 255, 0.85);
 			}
 
@@ -287,7 +350,7 @@ const t = content[defaultLanguage];
 
 			.language-button {
 				border: 1px solid var(--border);
-				background: rgba(12, 14, 24, 0.6);
+				background: rgba(6, 8, 18, 0.7);
 				color: var(--text);
 				padding: 0.4rem 0.9rem;
 				border-radius: 999px;
@@ -310,11 +373,11 @@ const t = content[defaultLanguage];
 				text-decoration: none;
 				color: var(--text);
 				border: 1px solid var(--border);
-				padding: 0.65rem 1.2rem;
+				padding: 0.65rem 1.1rem;
 				border-radius: 999px;
 				font-weight: 500;
 				letter-spacing: 0.02em;
-				background: rgba(12, 14, 24, 0.6);
+				background: rgba(6, 8, 18, 0.7);
 				box-shadow: 0 0 18px transparent;
 				transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
 			}
@@ -329,22 +392,69 @@ const t = content[defaultLanguage];
 				display: flex;
 				flex-direction: column;
 				gap: 1rem;
+				padding: 1.5rem;
+				border-radius: 20px;
+				background: linear-gradient(160deg, rgba(10, 14, 30, 0.9), rgba(8, 10, 20, 0.7));
+				border: 1px solid rgba(85, 242, 255, 0.12);
+				box-shadow: inset 0 0 12px rgba(85, 242, 255, 0.08);
 			}
 
 			.card-grid {
 				display: grid;
-				grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+				grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 				gap: 1.25rem;
 			}
 
 			.card {
 				padding: 1.25rem;
 				border-radius: 16px;
-				background: rgba(12, 14, 24, 0.6);
-				border: 1px solid rgba(124, 92, 255, 0.2);
+				background: rgba(8, 12, 24, 0.72);
+				border: 1px solid rgba(85, 242, 255, 0.15);
 				display: flex;
 				flex-direction: column;
 				gap: 0.75rem;
+			}
+
+			.skills-grid {
+				display: grid;
+				gap: 1rem;
+			}
+
+			.skill-card {
+				padding: 1rem 1.25rem;
+				border-radius: 14px;
+				border: 1px solid rgba(155, 91, 255, 0.25);
+				background: rgba(8, 10, 20, 0.7);
+				display: grid;
+				gap: 0.75rem;
+			}
+
+			.skill-header {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				gap: 1rem;
+			}
+
+			.skill-level {
+				font-family: "IBM Plex Mono", "SFMono-Regular", "Fira Code", monospace;
+				font-size: 0.85rem;
+				color: var(--accent);
+			}
+
+			.skill-track {
+				height: 10px;
+				border-radius: 999px;
+				background: rgba(6, 8, 18, 0.9);
+				border: 1px solid rgba(85, 242, 255, 0.2);
+				overflow: hidden;
+			}
+
+			.skill-fill {
+				height: 100%;
+				width: var(--skill-level);
+				background: linear-gradient(90deg, var(--accent), var(--accent-pink));
+				box-shadow: 0 0 12px rgba(85, 242, 255, 0.4);
 			}
 
 			.project-card {
@@ -356,15 +466,30 @@ const t = content[defaultLanguage];
 				color: rgba(245, 245, 255, 0.75);
 			}
 
-			.screenshot-placeholder {
+			.project-media {
+				border-radius: 14px;
+				padding: 0.5rem;
+				background: linear-gradient(135deg, rgba(85, 242, 255, 0.2), rgba(155, 91, 255, 0.2));
+				border: 1px solid rgba(85, 242, 255, 0.2);
+			}
+
+			.project-frame {
+				min-height: 150px;
 				border-radius: 12px;
-				border: 1px dashed rgba(124, 92, 255, 0.5);
-				background: rgba(12, 14, 24, 0.35);
-				color: rgba(245, 245, 255, 0.7);
-				padding: 1rem;
+				border: 1px solid rgba(85, 242, 255, 0.35);
+				background: linear-gradient(160deg, rgba(10, 12, 24, 0.9), rgba(6, 8, 18, 0.8));
+				display: flex;
+				align-items: center;
+				justify-content: center;
 				text-align: center;
+				padding: 1rem;
+			}
+
+			.project-frame-label {
 				font-size: 0.9rem;
-				letter-spacing: 0.02em;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				color: rgba(245, 247, 255, 0.7);
 			}
 
 			.ghost-button {
@@ -388,10 +513,10 @@ const t = content[defaultLanguage];
 			}
 
 			.modal-content {
-				background: rgba(12, 14, 24, 0.95);
+				background: var(--surface-strong);
 				border-radius: 20px;
-				border: 1px solid rgba(124, 92, 255, 0.25);
-				box-shadow: 0 0 24px rgba(7, 9, 18, 0.8);
+				border: 1px solid rgba(85, 242, 255, 0.25);
+				box-shadow: 0 0 24px rgba(6, 8, 18, 0.8);
 				padding: 2rem;
 				display: flex;
 				flex-direction: column;
@@ -413,7 +538,7 @@ const t = content[defaultLanguage];
 
 			.modal-close {
 				border: 1px solid var(--border);
-				background: rgba(12, 14, 24, 0.6);
+				background: rgba(6, 8, 18, 0.7);
 				color: var(--text);
 				padding: 0.45rem 0.9rem;
 				border-radius: 999px;
@@ -456,16 +581,16 @@ const t = content[defaultLanguage];
 				font-size: 0.85rem;
 			}
 
-			.notes-list {
+			.blog-list {
 				display: grid;
 				gap: 1rem;
 			}
 
-			.notes-list article {
+			.blog-list article {
 				padding: 1rem 1.25rem;
 				border-radius: 16px;
-				background: rgba(12, 14, 24, 0.45);
-				border: 1px solid rgba(124, 92, 255, 0.2);
+				background: rgba(8, 12, 24, 0.7);
+				border: 1px solid rgba(85, 242, 255, 0.18);
 			}
 
 			.timeline {
@@ -479,8 +604,8 @@ const t = content[defaultLanguage];
 			.timeline li {
 				padding: 1rem 1.25rem;
 				border-radius: 16px;
-				background: rgba(12, 14, 24, 0.45);
-				border: 1px solid rgba(124, 92, 255, 0.2);
+				background: rgba(8, 12, 24, 0.7);
+				border: 1px solid rgba(85, 242, 255, 0.18);
 			}
 
 			.timeline-details {
@@ -501,9 +626,20 @@ const t = content[defaultLanguage];
 				padding: 0.75rem 1.6rem;
 				border-radius: 999px;
 				font-weight: 600;
-				background: rgba(12, 14, 24, 0.6);
+				background: rgba(6, 8, 18, 0.7);
 				transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
 				cursor: pointer;
+			}
+
+			.button.primary {
+				background: linear-gradient(120deg, rgba(85, 242, 255, 0.2), rgba(255, 79, 216, 0.2));
+				border-color: rgba(85, 242, 255, 0.6);
+				box-shadow: 0 0 18px rgba(85, 242, 255, 0.35);
+			}
+
+			.button.ghost {
+				background: transparent;
+				border-color: rgba(155, 91, 255, 0.5);
 			}
 
 			.button:hover {
@@ -530,7 +666,7 @@ const t = content[defaultLanguage];
 			}
 
 			.email-link:hover {
-				color: var(--accent);
+				color: var(--accent-pink);
 			}
 
 			.social-links {
@@ -547,7 +683,7 @@ const t = content[defaultLanguage];
 				align-items: center;
 				justify-content: center;
 				color: var(--text);
-				background: rgba(12, 14, 24, 0.6);
+				background: rgba(6, 8, 18, 0.7);
 				transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 			}
 
@@ -565,8 +701,8 @@ const t = content[defaultLanguage];
 			.glow-divider {
 				height: 2px;
 				border-radius: 999px;
-				background: linear-gradient(90deg, transparent, var(--accent), transparent);
-				box-shadow: 0 0 14px var(--glow);
+				background: linear-gradient(90deg, transparent, var(--accent-pink), transparent);
+				box-shadow: 0 0 14px rgba(255, 79, 216, 0.45);
 				animation: pulse 6s ease-in-out infinite;
 				opacity: 0.7;
 				margin-top: 1.5rem;
@@ -587,6 +723,15 @@ const t = content[defaultLanguage];
 			@media (max-width: 640px) {
 				main {
 					padding: 2.5rem 1.75rem;
+				}
+
+				.hero-grid {
+					grid-template-columns: 1fr;
+				}
+
+				.hero-actions {
+					flex-direction: column;
+					align-items: flex-start;
 				}
 
 				.top-nav {

@@ -7,10 +7,14 @@ const heroNameKey = "hero.name";
 const heroHeadlineKey = "hero.headline";
 const heroLocationKey = "hero.location";
 const heroStatusKey = "hero.status";
+const heroCtaPrimaryKey = "hero.ctaPrimary";
+const heroCtaSecondaryKey = "hero.ctaSecondary";
+const heroHeadshotAltKey = "hero.headshotAlt";
 const navAboutKey = "nav.about";
+const navSkillsKey = "nav.skills";
 const navProjectsKey = "nav.projects";
 const navExperienceKey = "nav.experience";
-const navNotesKey = "nav.notes";
+const navBlogKey = "nav.blog";
 const navContactKey = "nav.contact";
 const languageLabelKey = "languageSwitcher.label";
 const languageEnglishKey = "languageSwitcher.english";
@@ -18,19 +22,41 @@ const languageFinnishKey = "languageSwitcher.finnish";
 ---
 
 <header class="site-header">
-  <div>
-    <p class="label" data-i18n={heroLabelKey}>{t(heroLabelKey)}</p>
-    <h1 data-i18n={heroNameKey}>{t(heroNameKey)}</h1>
-    <p class="headline" data-i18n={heroHeadlineKey}>{t(heroHeadlineKey)}</p>
-    <p class="hero-meta" data-i18n={heroLocationKey}>{t(heroLocationKey)}</p>
-    <p class="status-chip" data-i18n={heroStatusKey}>{t(heroStatusKey)}</p>
+  <div class="hero-grid">
+    <div class="hero-portrait">
+      <img
+        src="/headshot.svg"
+        alt={t(heroHeadshotAltKey)}
+        data-i18n={heroHeadshotAltKey}
+        data-i18n-attr="alt"
+        data-i18n-mode="attr"
+        loading="lazy"
+      />
+      <span class="hero-portrait-glow" aria-hidden="true"></span>
+    </div>
+    <div class="hero-copy">
+      <p class="label" data-i18n={heroLabelKey}>{t(heroLabelKey)}</p>
+      <h1 data-i18n={heroNameKey}>{t(heroNameKey)}</h1>
+      <p class="headline" data-i18n={heroHeadlineKey}>{t(heroHeadlineKey)}</p>
+      <p class="hero-meta" data-i18n={heroLocationKey}>{t(heroLocationKey)}</p>
+      <p class="status-chip" data-i18n={heroStatusKey}>{t(heroStatusKey)}</p>
+      <div class="hero-actions">
+        <a class="button primary" href="#projects" data-i18n={heroCtaPrimaryKey}>
+          {t(heroCtaPrimaryKey)}
+        </a>
+        <a class="button ghost" href="#contact" data-i18n={heroCtaSecondaryKey}>
+          {t(heroCtaSecondaryKey)}
+        </a>
+      </div>
+    </div>
   </div>
   <div class="nav-row">
     <nav aria-label="Primary" class="top-nav">
       <a href="#about" data-i18n={navAboutKey}>{t(navAboutKey)}</a>
+      <a href="#skills" data-i18n={navSkillsKey}>{t(navSkillsKey)}</a>
       <a href="#projects" data-i18n={navProjectsKey}>{t(navProjectsKey)}</a>
       <a href="#experience" data-i18n={navExperienceKey}>{t(navExperienceKey)}</a>
-      <a href="#notes" data-i18n={navNotesKey}>{t(navNotesKey)}</a>
+      <a href="#blog" data-i18n={navBlogKey}>{t(navBlogKey)}</a>
       <a href="#contact" data-i18n={navContactKey}>{t(navContactKey)}</a>
     </nav>
     <div class="language-switcher" aria-label="Language switcher">
