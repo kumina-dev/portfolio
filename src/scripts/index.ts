@@ -21,6 +21,8 @@ window.__preferredLanguage = resolvedLanguage;
 const languageButtons = document.querySelectorAll<HTMLButtonElement>("[data-lang]");
 const i18nElements = document.querySelectorAll<HTMLElement>("[data-i18n]");
 const localizedBlocks = document.querySelectorAll<HTMLElement>("[data-locale]");
+const sectionLinks = document.querySelectorAll<HTMLAnchorElement>("[data-section-link]");
+const contentSections = document.querySelectorAll<HTMLElement>("[data-section]");
 const modal = document.querySelector<HTMLDialogElement>("#project-modal");
 const openButtons = document.querySelectorAll<HTMLButtonElement>("[data-project-open]");
 const modalClose = modal?.querySelector<HTMLButtonElement>("[data-modal-close]");
@@ -34,6 +36,7 @@ const contactForm = document.querySelector<HTMLFormElement>("[data-contact-form]
 const formStatus = document.querySelector<HTMLElement>("[data-form-status]");
 let activeLanguage = defaultLanguage;
 let activeProjectId: string | null = null;
+let activeSectionId = "about";
 
 const getValue = (lang: string, key: string) =>
 	key.split(".").reduce<unknown>((acc, part) => {
@@ -63,6 +66,30 @@ const renderModal = (
 	});
 	if (modalShare) {
 		modalShare.href = `${projectHashPrefix}${project.id}`;
+	}
+};
+
+const setActiveSection = (sectionId: string, updateHash = true) => {
+	const resolvedSection = Array.from(contentSections).some(
+		(section) => section.dataset.section === sectionId,
+	)
+		? sectionId
+		: "about";
+	activeSectionId = resolvedSection;
+	contentSections.forEach((section) => {
+		const isActive = section.dataset.section === resolvedSection;
+		section.classList.toggle("is-active", isActive);
+	});
+	sectionLinks.forEach((link) => {
+		const isActive = link.dataset.sectionLink === resolvedSection;
+		if (isActive) {
+			link.setAttribute("aria-current", "page");
+		} else {
+			link.removeAttribute("aria-current");
+		}
+	});
+	if (updateHash) {
+		history.replaceState(null, "", `#${resolvedSection}`);
 	}
 };
 
@@ -127,6 +154,7 @@ applyLanguage(savedLanguage);
 const handleProjectHash = () => {
 	const hash = window.location.hash;
 	if (hash.startsWith(projectHashPrefix)) {
+		setActiveSection("projects", false);
 		const projectId = hash.replace(projectHashPrefix, "");
 		if (projectId) {
 			openModal(projectId);
@@ -138,12 +166,35 @@ const handleProjectHash = () => {
 	}
 };
 
+const handleSectionHash = () => {
+	const hash = window.location.hash;
+	if (!hash || hash.startsWith(projectHashPrefix)) {
+		setActiveSection(activeSectionId || "about", false);
+		return;
+	}
+	const sectionId = hash.replace("#", "");
+	const hasSection = Array.from(contentSections).some(
+		(section) => section.dataset.section === sectionId,
+	);
+	setActiveSection(hasSection ? sectionId : "about", false);
+};
+
 languageButtons.forEach((button) => {
 	button.addEventListener("click", () => {
 		const nextLang = button.dataset.lang;
 		if (!nextLang) return;
 		localStorage.setItem("language", nextLang);
 		applyLanguage(nextLang);
+	});
+});
+
+sectionLinks.forEach((link) => {
+	link.addEventListener("click", (event) => {
+		event.preventDefault();
+		const target = link.dataset.sectionLink;
+		if (target) {
+			setActiveSection(target);
+		}
 	});
 });
 
@@ -164,7 +215,11 @@ modal?.addEventListener("click", (event) => {
 	}
 });
 
-window.addEventListener("hashchange", handleProjectHash);
+window.addEventListener("hashchange", () => {
+	handleSectionHash();
+	handleProjectHash();
+});
+handleSectionHash();
 handleProjectHash();
 
 const setFieldError = (field: HTMLInputElement | HTMLTextAreaElement, message: string) => {

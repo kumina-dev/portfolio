@@ -41,10 +41,20 @@ const languageFinnishKey = "languageSwitcher.finnish";
       <p class="hero-meta" data-i18n={heroLocationKey}>{t(heroLocationKey)}</p>
       <p class="status-chip" data-i18n={heroStatusKey}>{t(heroStatusKey)}</p>
       <div class="hero-actions">
-        <a class="button primary" href="#projects" data-i18n={heroCtaPrimaryKey}>
+        <a
+          class="button primary"
+          href="#projects"
+          data-section-link="projects"
+          data-i18n={heroCtaPrimaryKey}
+        >
           {t(heroCtaPrimaryKey)}
         </a>
-        <a class="button ghost" href="#contact" data-i18n={heroCtaSecondaryKey}>
+        <a
+          class="button ghost"
+          href="#contact"
+          data-section-link="contact"
+          data-i18n={heroCtaSecondaryKey}
+        >
           {t(heroCtaSecondaryKey)}
         </a>
       </div>
@@ -53,12 +63,41 @@ const languageFinnishKey = "languageSwitcher.finnish";
   <div class="nav-row">
     <nav aria-label="Primary" class="top-nav">
       <ul class="top-nav-list">
-        <li><a href="#about" data-i18n={navAboutKey}>{t(navAboutKey)}</a></li>
-        <li><a href="#skills" data-i18n={navSkillsKey}>{t(navSkillsKey)}</a></li>
-        <li><a href="#projects" data-i18n={navProjectsKey}>{t(navProjectsKey)}</a></li>
-        <li><a href="#experience" data-i18n={navExperienceKey}>{t(navExperienceKey)}</a></li>
-        <li><a href="#blog" data-i18n={navBlogKey}>{t(navBlogKey)}</a></li>
-        <li><a href="#contact" data-i18n={navContactKey}>{t(navContactKey)}</a></li>
+        <li>
+          <a
+            href="#about"
+            data-section-link="about"
+            data-i18n={navAboutKey}
+            aria-current="page"
+          >
+            {t(navAboutKey)}
+          </a>
+        </li>
+        <li>
+          <a href="#skills" data-section-link="skills" data-i18n={navSkillsKey}>
+            {t(navSkillsKey)}
+          </a>
+        </li>
+        <li>
+          <a href="#projects" data-section-link="projects" data-i18n={navProjectsKey}>
+            {t(navProjectsKey)}
+          </a>
+        </li>
+        <li>
+          <a href="#experience" data-section-link="experience" data-i18n={navExperienceKey}>
+            {t(navExperienceKey)}
+          </a>
+        </li>
+        <li>
+          <a href="#blog" data-section-link="blog" data-i18n={navBlogKey}>
+            {t(navBlogKey)}
+          </a>
+        </li>
+        <li>
+          <a href="#contact" data-section-link="contact" data-i18n={navContactKey}>
+            {t(navContactKey)}
+          </a>
+        </li>
       </ul>
     </nav>
     <div class="language-switcher" aria-label="Language switcher">

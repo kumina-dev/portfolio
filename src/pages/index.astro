@@ -67,14 +67,18 @@ const t = content[defaultLanguage];
 			<a class="skip-link" href="#main-content" data-i18n="nav.skip">
 				{t.nav.skip}
 			</a>
-			<main id="main-content" tabindex="-1">
-				<Hero />
-				<About />
-				<Skills />
-				<Projects />
-				<Experience />
-				<Blog />
-				<Contact />
+			<main id="main-content" class="layout-shell" tabindex="-1">
+				<aside class="sidebar" aria-label="Profile and navigation">
+					<Hero />
+				</aside>
+				<section class="content-panel" aria-live="polite">
+					<About />
+					<Skills />
+					<Projects />
+					<Experience />
+					<Blog />
+					<Contact />
+				</section>
 			</main>
 		</div>
 	</body>
