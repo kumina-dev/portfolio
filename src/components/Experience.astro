@@ -5,21 +5,25 @@ const t = content[defaultLanguage];
 ---
 
 <section id="experience" class="section">
-  <p class="label" data-i18n="experience.label">{t.experience.label}</p>
-  <h2 data-i18n="experience.title">{t.experience.title}</h2>
-  <ul class="timeline">
-    {t.experience.items.map((item, index) => (
-      <li>
-        <h3 data-i18n={`experience.items.${index}.title`}>{item.title}</h3>
-        <p data-i18n={`experience.items.${index}.period`}>{item.period}</p>
-        {item.details.length > 0 ? (
-          <ul class="timeline-details">
-            {item.details.map((detail, detailIndex) => (
-              <li data-i18n={`experience.items.${index}.details.${detailIndex}`}>{detail}</li>
-            ))}
-          </ul>
-        ) : null}
-      </li>
-    ))}
-  </ul>
+  <div class="section-header">
+    <p class="label" data-i18n="experience.label">{t.experience.label}</p>
+    <h2 data-i18n="experience.title">{t.experience.title}</h2>
+  </div>
+  <div class="section-body">
+    <ul class="timeline">
+      {t.experience.items.map((item, index) => (
+        <li>
+          <h3 data-i18n={`experience.items.${index}.title`}>{item.title}</h3>
+          <p data-i18n={`experience.items.${index}.period`}>{item.period}</p>
+          {item.details.length > 0 ? (
+            <ul class="timeline-details">
+              {item.details.map((detail, detailIndex) => (
+                <li data-i18n={`experience.items.${index}.details.${detailIndex}`}>{detail}</li>
+              ))}
+            </ul>
+          ) : null}
+        </li>
+      ))}
+    </ul>
+  </div>
 </section>

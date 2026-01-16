@@ -18,42 +18,46 @@ const itemKey = (index: number, field: string) => `projects.items.${index}.${fie
 ---
 
 <section id="projects" class="section">
-  <p class="label" data-i18n={projectsLabelKey}>{i18n(projectsLabelKey)}</p>
-  <h2 data-i18n={projectsTitleKey}>{i18n(projectsTitleKey)}</h2>
-  <div class="card-grid">
-    {t.projects.items.map((project, index) => (
-      <article class="card project-card" data-project-id={project.id}>
-        <h3 data-i18n={itemKey(index, "title")}>{i18n(itemKey(index, "title"))}</h3>
-        <p data-i18n={itemKey(index, "summary")}>{i18n(itemKey(index, "summary"))}</p>
-        <div class="project-media">
-          <div
-            class="project-frame"
-            data-i18n={itemKey(index, "screenshotLabel")}
-            data-i18n-attr="aria-label"
-            aria-label={project.screenshotLabel}
-          >
-            <span class="project-frame-label">{i18n(itemKey(index, "screenshotLabel"))}</span>
+  <div class="section-header">
+    <p class="label" data-i18n={projectsLabelKey}>{i18n(projectsLabelKey)}</p>
+    <h2 data-i18n={projectsTitleKey}>{i18n(projectsTitleKey)}</h2>
+  </div>
+  <div class="section-body">
+    <div class="card-grid">
+      {t.projects.items.map((project, index) => (
+        <article class="card project-card" data-project-id={project.id}>
+          <h3 data-i18n={itemKey(index, "title")}>{i18n(itemKey(index, "title"))}</h3>
+          <p data-i18n={itemKey(index, "summary")}>{i18n(itemKey(index, "summary"))}</p>
+          <div class="project-media">
+            <div
+              class="project-frame"
+              data-i18n={itemKey(index, "screenshotLabel")}
+              data-i18n-attr="aria-label"
+              aria-label={project.screenshotLabel}
+            >
+              <span class="project-frame-label">{i18n(itemKey(index, "screenshotLabel"))}</span>
+            </div>
           </div>
-        </div>
-        <p class="card-meta">
-          <span data-i18n={projectsTechLabelKey}>{i18n(projectsTechLabelKey)}</span>:{" "}
-          <span data-i18n={itemKey(index, "tech")}>{i18n(itemKey(index, "tech"))}</span>
-        </p>
-        <div class="project-actions">
-          <button class="button ghost ghost-button" type="button" data-project-open={project.id}>
-            <span data-i18n={projectsOpenButtonKey}>{i18n(projectsOpenButtonKey)}</span>
-          </button>
-          <a
-            class="button ghost ghost-button"
-            href={`#project-${project.id}`}
-            data-project-share={project.id}
-            data-i18n={projectsShareLinkKey}
-          >
-            {i18n(projectsShareLinkKey)}
-          </a>
-        </div>
-      </article>
-    ))}
+          <p class="card-meta">
+            <span data-i18n={projectsTechLabelKey}>{i18n(projectsTechLabelKey)}</span>:{" "}
+            <span data-i18n={itemKey(index, "tech")}>{i18n(itemKey(index, "tech"))}</span>
+          </p>
+          <div class="project-actions">
+            <button class="button ghost ghost-button" type="button" data-project-open={project.id}>
+              <span data-i18n={projectsOpenButtonKey}>{i18n(projectsOpenButtonKey)}</span>
+            </button>
+            <a
+              class="button ghost ghost-button"
+              href={`#project-${project.id}`}
+              data-project-share={project.id}
+              data-i18n={projectsShareLinkKey}
+            >
+              {i18n(projectsShareLinkKey)}
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
   </div>
   <dialog
     class="project-modal"
