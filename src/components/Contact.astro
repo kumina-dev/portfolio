@@ -8,6 +8,71 @@ const t = content[defaultLanguage];
   <p class="label" data-i18n="contact.label">{t.contact.label}</p>
   <h2 data-i18n="contact.title">{t.contact.title}</h2>
   <p data-i18n="contact.body">{t.contact.body}</p>
+  <form class="contact-form" data-contact-form>
+    <div class="form-field">
+      <label for="contact-name" data-i18n="contact.form.nameLabel">
+        {t.contact.form.nameLabel}
+      </label>
+      <input
+        id="contact-name"
+        name="name"
+        type="text"
+        autocomplete="name"
+        required
+        minlength="2"
+        placeholder={t.contact.form.namePlaceholder}
+        data-i18n="contact.form.namePlaceholder"
+        data-i18n-attr="placeholder"
+        data-i18n-mode="attr"
+      />
+      <span class="form-error" data-error-for="contact-name" aria-live="polite"></span>
+    </div>
+    <div class="form-field">
+      <label for="contact-email" data-i18n="contact.form.emailLabel">
+        {t.contact.form.emailLabel}
+      </label>
+      <input
+        id="contact-email"
+        name="email"
+        type="email"
+        autocomplete="email"
+        required
+        placeholder={t.contact.form.emailPlaceholder}
+        data-i18n="contact.form.emailPlaceholder"
+        data-i18n-attr="placeholder"
+        data-i18n-mode="attr"
+      />
+      <span class="form-error" data-error-for="contact-email" aria-live="polite"></span>
+    </div>
+    <div class="form-field">
+      <label for="contact-message" data-i18n="contact.form.messageLabel">
+        {t.contact.form.messageLabel}
+      </label>
+      <textarea
+        id="contact-message"
+        name="message"
+        rows="5"
+        required
+        minlength="12"
+        placeholder={t.contact.form.messagePlaceholder}
+        data-i18n="contact.form.messagePlaceholder"
+        data-i18n-attr="placeholder"
+        data-i18n-mode="attr"
+      ></textarea>
+      <span class="form-error" data-error-for="contact-message" aria-live="polite"></span>
+    </div>
+    <button class="button primary" type="submit" data-i18n="contact.form.submitLabel">
+      {t.contact.form.submitLabel}
+    </button>
+    <p
+      class="form-status"
+      data-form-status
+      data-i18n="contact.form.successMessage"
+      aria-live="polite"
+    >
+      {t.contact.form.successMessage}
+    </p>
+  </form>
   <div class="contact-actions">
     <a class="button primary" href={`mailto:${t.contact.email}`} data-i18n="contact.cta">
       {t.contact.cta}

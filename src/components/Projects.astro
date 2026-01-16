@@ -12,6 +12,8 @@ const projectsModalLabelKey = "projects.modalLabel";
 const projectsCloseButtonKey = "projects.closeButton";
 const projectsOverviewLabelKey = "projects.overviewLabel";
 const projectsHighlightsLabelKey = "projects.highlightsLabel";
+const projectsShareLabelKey = "projects.shareLabel";
+const projectsShareLinkKey = "projects.shareLink";
 const itemKey = (index: number, field: string) => `projects.items.${index}.${field}`;
 ---
 
@@ -37,9 +39,19 @@ const itemKey = (index: number, field: string) => `projects.items.${index}.${fie
           <span data-i18n={projectsTechLabelKey}>{i18n(projectsTechLabelKey)}</span>:{" "}
           <span data-i18n={itemKey(index, "tech")}>{i18n(itemKey(index, "tech"))}</span>
         </p>
-        <button class="button ghost ghost-button" type="button" data-project-open={project.id}>
-          <span data-i18n={projectsOpenButtonKey}>{i18n(projectsOpenButtonKey)}</span>
-        </button>
+        <div class="project-actions">
+          <button class="button ghost ghost-button" type="button" data-project-open={project.id}>
+            <span data-i18n={projectsOpenButtonKey}>{i18n(projectsOpenButtonKey)}</span>
+          </button>
+          <a
+            class="button ghost ghost-button"
+            href={`#project-${project.id}`}
+            data-project-share={project.id}
+            data-i18n={projectsShareLinkKey}
+          >
+            {i18n(projectsShareLinkKey)}
+          </a>
+        </div>
       </article>
     ))}
   </div>
@@ -76,6 +88,14 @@ const itemKey = (index: number, field: string) => `projects.items.${index}.${fie
           </span>
           <span data-modal="tech"></span>
         </p>
+        <div class="modal-share">
+          <span class="modal-share-label" data-i18n={projectsShareLabelKey}>
+            {i18n(projectsShareLabelKey)}
+          </span>
+          <a class="modal-share-link" data-modal="share" data-i18n={projectsShareLinkKey}>
+            {i18n(projectsShareLinkKey)}
+          </a>
+        </div>
       </div>
     </div>
   </dialog>

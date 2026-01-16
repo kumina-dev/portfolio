@@ -4,8 +4,11 @@ export const content = {
   en: {
     meta: {
       title: "Kumina | Security Portfolio",
+      description:
+        "Security-focused web designer and developer crafting privacy-first, accessible, and modern digital experiences.",
     },
     nav: {
+      skip: "Skip to main content",
       about: "About",
       skills: "Skills",
       projects: "Projects",
@@ -75,6 +78,8 @@ export const content = {
       overviewLabel: "Project overview",
       highlightsLabel: "Highlights",
       techLabel: "Tech stack",
+      shareLabel: "Shareable link",
+      shareLink: "Open share link",
       items: [
         {
           id: "welding",
@@ -137,6 +142,8 @@ export const content = {
     blog: {
       label: "Blog",
       title: "Latest field notes",
+      readMore: "Read full post",
+      backToHome: "Back to portfolio",
     },
     contact: {
       label: "Contact",
@@ -146,6 +153,16 @@ export const content = {
       cta: "Hire me",
       email: "hello@kumina.dev",
       socialLabel: "Social links",
+      form: {
+        nameLabel: "Name",
+        namePlaceholder: "Your full name",
+        emailLabel: "Email",
+        emailPlaceholder: "you@example.com",
+        messageLabel: "Project details",
+        messagePlaceholder: "Tell me about the project scope, timeline, and goals.",
+        submitLabel: "Send inquiry",
+        successMessage: "Thanks! Your message is ready to send.",
+      },
     },
     languageSwitcher: {
       label: "Language",
@@ -156,8 +173,11 @@ export const content = {
   fi: {
     meta: {
       title: "Kumina | Security Portfolio",
+      description:
+        "Tietoturvaan keskittynyt web-suunnittelija ja kehittäjä, joka rakentaa yksityisyyslähtöisiä ja saavutettavia digikokemuksia.",
     },
     nav: {
+      skip: "Siirry pääsisältöön",
       about: "Tietoja",
       skills: "Taidot",
       projects: "Projektit",
@@ -227,6 +247,8 @@ export const content = {
       overviewLabel: "Projektin yhteenveto",
       highlightsLabel: "Kohokohdat",
       techLabel: "Teknologiat",
+      shareLabel: "Jaettava linkki",
+      shareLink: "Avaa jaettava linkki",
       items: [
         {
           id: "welding",
@@ -289,6 +311,8 @@ export const content = {
     blog: {
       label: "Blogi",
       title: "Tuoreimmat kenttämuistiinpanot",
+      readMore: "Lue koko kirjoitus",
+      backToHome: "Takaisin portfolioon",
     },
     contact: {
       label: "Yhteys",
@@ -298,6 +322,16 @@ export const content = {
       cta: "Palkkaa minut",
       email: "hello@kumina.dev",
       socialLabel: "Sosiaalilinkit",
+      form: {
+        nameLabel: "Nimi",
+        namePlaceholder: "Koko nimesi",
+        emailLabel: "Sähköposti",
+        emailPlaceholder: "sinä@example.com",
+        messageLabel: "Projektin tiedot",
+        messagePlaceholder: "Kuvaile projektin laajuus, aikataulu ja tavoitteet.",
+        submitLabel: "Lähetä kysely",
+        successMessage: "Kiitos! Viesti on valmis lähetettäväksi.",
+      },
     },
     languageSwitcher: {
       label: "Kieli",

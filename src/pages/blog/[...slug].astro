@@ -1,0 +1,74 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection } from "astro:content";
+import { content } from "../../data/content";
+import "../../styles/index.css";
+
+export async function getStaticPaths() {
+    const posts = await getCollection("blog");
+    return posts.map((post) => ({
+        params: { slug: post.slug },
+        props: { post },
+    }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+const localeContent = content[post.data.locale];
+const metaTitle = `${post.data.title} | ${localeContent.meta.title}`;
+const formattedDate = new Intl.DateTimeFormat(
+    post.data.locale === "fi" ? "fi-FI" : "en-US",
+    {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+    },
+).format(post.data.date);
+---
+
+<html lang={post.data.locale}>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{metaTitle}</title>
+    <meta name="description" content={post.data.summary} />
+    <meta property="og:title" content={metaTitle} />
+    <meta property="og:description" content={post.data.summary} />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="/headshot.svg" />
+    <meta property="og:url" content={Astro.url.href} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={metaTitle} />
+    <meta name="twitter:description" content={post.data.summary} />
+    <meta name="twitter:image" content="/headshot.svg" />
+    <link rel="canonical" href={Astro.url.href} />
+  </head>
+  <body>
+    <main id="main-content">
+      <section class="section">
+        <a class="blog-back-link" href="/" data-i18n="blog.backToHome">
+          {localeContent.blog.backToHome}
+        </a>
+        <header class="blog-post-header">
+          <p class="label" data-i18n="blog.label">{localeContent.blog.label}</p>
+          <h1>{post.data.title}</h1>
+          <p class="blog-meta">
+            <time datetime={post.data.date.toISOString()}>{formattedDate}</time>
+            <span aria-hidden="true">•</span>
+            <span>{post.data.readingTime}</span>
+          </p>
+          <div class="blog-tags">
+            {post.data.tags.map((tag) => (
+              <span class="blog-tag">{tag}</span>
+            ))}
+          </div>
+        </header>
+        <article class="blog-post-body">
+          <Content />
+        </article>
+      </section>
+    </main>
+  </body>
+</html>

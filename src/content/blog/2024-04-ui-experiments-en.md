@@ -2,6 +2,10 @@
 title: "Neon UI experiments"
 date: 2024-04-08
 summary: "Tested neon-inspired layouts for fast-scanning portfolios."
+readingTime: "4 min read"
+tags:
+  - "UI"
+  - "Design Systems"
 locale: "en"
 ---
 

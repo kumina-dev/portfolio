@@ -2,6 +2,10 @@
 title: "Scheduling security upgrades"
 date: 2024-08-15
 summary: "Hardened booking logic to prevent collisions and enforce availability rules."
+readingTime: "4 min read"
+tags:
+  - "Scheduling"
+  - "Security"
 locale: "en"
 ---
 

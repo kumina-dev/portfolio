@@ -28,6 +28,10 @@ const modalTitle = modal?.querySelector<HTMLElement>("[data-modal='title']");
 const modalSummary = modal?.querySelector<HTMLElement>("[data-modal='summary']");
 const modalHighlights = modal?.querySelector<HTMLUListElement>("[data-modal='highlights']");
 const modalTech = modal?.querySelector<HTMLElement>("[data-modal='tech']");
+const modalShare = modal?.querySelector<HTMLAnchorElement>("[data-modal='share']");
+const projectHashPrefix = "#project-";
+const contactForm = document.querySelector<HTMLFormElement>("[data-contact-form]");
+const formStatus = document.querySelector<HTMLElement>("[data-form-status]");
 let activeLanguage = defaultLanguage;
 let activeProjectId: string | null = null;
 
@@ -44,7 +48,9 @@ const getProject = (lang: string, id: string) =>
 		(item) => item.id === id,
 	);
 
-const renderModal = (project?: (typeof contentData)[keyof typeof contentData]["projects"]["items"][number]) => {
+const renderModal = (
+	project?: (typeof contentData)[keyof typeof contentData]["projects"]["items"][number],
+) => {
 	if (!project || !modalTitle || !modalSummary || !modalHighlights || !modalTech) return;
 	modalTitle.textContent = project.title;
 	modalSummary.textContent = project.summary;
@@ -55,6 +61,9 @@ const renderModal = (project?: (typeof contentData)[keyof typeof contentData]["p
 		item.textContent = highlight;
 		modalHighlights.appendChild(item);
 	});
+	if (modalShare) {
+		modalShare.href = `${projectHashPrefix}${project.id}`;
+	}
 };
 
 const applyLanguage = (lang: string) => {
@@ -100,15 +109,34 @@ const openModal = (projectId: string) => {
 	activeProjectId = projectId;
 	renderModal(project);
 	modal.showModal();
+	history.replaceState(null, "", `${projectHashPrefix}${projectId}`);
 };
 
 const closeModal = () => {
 	if (!modal) return;
 	modal.close();
+	if (window.location.hash.startsWith(projectHashPrefix)) {
+		history.replaceState(null, "", "#projects");
+	}
+	activeProjectId = null;
 };
 
 const savedLanguage = window.__preferredLanguage ?? defaultLanguage;
 applyLanguage(savedLanguage);
+
+const handleProjectHash = () => {
+	const hash = window.location.hash;
+	if (hash.startsWith(projectHashPrefix)) {
+		const projectId = hash.replace(projectHashPrefix, "");
+		if (projectId) {
+			openModal(projectId);
+		}
+		return;
+	}
+	if (modal?.open) {
+		closeModal();
+	}
+};
 
 languageButtons.forEach((button) => {
 	button.addEventListener("click", () => {
@@ -134,4 +162,49 @@ modal?.addEventListener("click", (event) => {
 	if (event.target === modal) {
 		closeModal();
 	}
+});
+
+window.addEventListener("hashchange", handleProjectHash);
+handleProjectHash();
+
+const setFieldError = (field: HTMLInputElement | HTMLTextAreaElement, message: string) => {
+	const error = document.querySelector<HTMLElement>(`[data-error-for="${field.id}"]`);
+	if (error) {
+		error.textContent = message;
+	}
+};
+
+const validateField = (field: HTMLInputElement | HTMLTextAreaElement) => {
+	if (field.checkValidity()) {
+		setFieldError(field, "");
+		return true;
+	}
+	setFieldError(field, field.validationMessage);
+	return false;
+};
+
+contactForm?.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>("input, textarea").forEach(
+	(field) => {
+		field.addEventListener("blur", () => validateField(field));
+		field.addEventListener("input", () => formStatus?.classList.remove("is-visible"));
+	},
+);
+
+contactForm?.addEventListener("submit", (event) => {
+	event.preventDefault();
+	const fields = contactForm.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>(
+		"input, textarea",
+	);
+	let isValid = true;
+	fields.forEach((field) => {
+		if (!validateField(field)) {
+			isValid = false;
+		}
+	});
+	if (!isValid) return;
+	fields.forEach((field) => setFieldError(field, ""));
+	if (formStatus) {
+		formStatus.classList.add("is-visible");
+	}
+	contactForm.reset();
 });

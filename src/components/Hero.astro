@@ -52,12 +52,14 @@ const languageFinnishKey = "languageSwitcher.finnish";
   </div>
   <div class="nav-row">
     <nav aria-label="Primary" class="top-nav">
-      <a href="#about" data-i18n={navAboutKey}>{t(navAboutKey)}</a>
-      <a href="#skills" data-i18n={navSkillsKey}>{t(navSkillsKey)}</a>
-      <a href="#projects" data-i18n={navProjectsKey}>{t(navProjectsKey)}</a>
-      <a href="#experience" data-i18n={navExperienceKey}>{t(navExperienceKey)}</a>
-      <a href="#blog" data-i18n={navBlogKey}>{t(navBlogKey)}</a>
-      <a href="#contact" data-i18n={navContactKey}>{t(navContactKey)}</a>
+      <ul class="top-nav-list">
+        <li><a href="#about" data-i18n={navAboutKey}>{t(navAboutKey)}</a></li>
+        <li><a href="#skills" data-i18n={navSkillsKey}>{t(navSkillsKey)}</a></li>
+        <li><a href="#projects" data-i18n={navProjectsKey}>{t(navProjectsKey)}</a></li>
+        <li><a href="#experience" data-i18n={navExperienceKey}>{t(navExperienceKey)}</a></li>
+        <li><a href="#blog" data-i18n={navBlogKey}>{t(navBlogKey)}</a></li>
+        <li><a href="#contact" data-i18n={navContactKey}>{t(navContactKey)}</a></li>
+      </ul>
     </nav>
     <div class="language-switcher" aria-label="Language switcher">
       <span class="label" data-i18n={languageLabelKey}>{t(languageLabelKey)}</span>

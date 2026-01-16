@@ -7,6 +7,16 @@ const posts = await getCollection("blog");
 const sortedPosts = posts
   .slice()
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const localeMap: Record<string, string> = {
+  en: "en-US",
+  fi: "fi-FI",
+};
+const formatDate = (date: Date, locale: string) =>
+  new Intl.DateTimeFormat(locale, {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  }).format(date);
 ---
 
 <section id="blog" class="section">
@@ -16,7 +26,22 @@ const sortedPosts = posts
     {sortedPosts.map((post) => (
       <article data-locale={post.data.locale} hidden={post.data.locale !== defaultLanguage}>
         <h3>{post.data.title}</h3>
+        <p class="blog-meta">
+          <time datetime={post.data.date.toISOString()}>
+            {formatDate(post.data.date, localeMap[post.data.locale])}
+          </time>
+          <span aria-hidden="true">•</span>
+          <span>{post.data.readingTime}</span>
+        </p>
         <p>{post.data.summary}</p>
+        <div class="blog-tags">
+          {post.data.tags.map((tag) => (
+            <span class="blog-tag">{tag}</span>
+          ))}
+        </div>
+        <a class="blog-link" href={`/blog/${post.slug}`} data-i18n="blog.readMore">
+          {t.blog.readMore}
+        </a>
       </article>
     ))}
   </div>
