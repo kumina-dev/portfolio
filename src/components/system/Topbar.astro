@@ -1,0 +1,46 @@
+---
+import { SITE } from "../../const/site";
+import { NAV } from "../../const/nav";
+import Kbd from "../ui/Kbd.astro";
+import StatusDot from "./StatusDot.astro";
+const { currentPath } = Astro.props as { currentPath: string };
+---
+<header class="sticky top-0 z-40 border-b border-white/10 bg-[rgba(10,12,16,0.65)] backdrop-blur">
+    <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
+        <div class="flex items-center gap-3">
+            <StatusDot online />
+            <a href="/" class="font-mono text-sm text-white/90">{SITE.name}</a>
+            <span class="hidden text-xs text-white/40 sm:inline">·</span>
+            <span class="hidden text-xs text-white/60 sm:inline">{SITE.tagline}</span>
+        </div>
+
+        <nav class="hidden items-center gap-4 sm:flex">
+            {NAV.map((n) => (
+                <a
+                    href={n.href}
+                    class:list={[
+                        "text-sm text-white/70 hover:text-white",
+                        currentPath === n.href ? "text-white underline decoration-white/25" : ""
+                    ]}
+                >
+                    {n.label}
+                </a>
+            ))}
+            <button
+                type="button"
+                class="ml-2 inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/3 px-3 py-1.5 text-xs text-white/70 hover:text-white"
+                data-cmdk-open
+            >
+                Search <Kbd keys="Ctrl K" />
+            </button>
+        </nav>
+
+        <button
+            type="button"
+            class="sm:hidden rounded-xl border border-white/10 bg-white/3 px-3 py-1.5 text-xs text-white/70"
+            data-cmdk-open
+        >
+            Menu
+        </button>
+    </div>
+</header>

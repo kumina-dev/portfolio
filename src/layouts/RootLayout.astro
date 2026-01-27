@@ -1,0 +1,22 @@
+---
+import "../styles/app.css";
+import { SITE } from "../const/site";
+import BootOverlay from "../components/system/BootOverlay.astro";
+const { title, description } = Astro.props as { title?: string; description?: string };
+const pageTitle = title ? `${title} · ${SITE.name}` : `${SITE.name} · ${SITE.tagline}`;
+const pageDesc = description ?? SITE.description;
+---
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDesc} />
+    </head>
+    <body>
+        <slot />
+
+        <BootOverlay title="SECURE CONSOLE" subtitle="Initializing interface..." />
+        <script type="module" is:inline src="/src/scripts/boot-overlay.ts"></script>
+    </body>
+</html>

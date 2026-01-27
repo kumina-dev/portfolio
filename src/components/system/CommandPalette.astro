@@ -1,0 +1,39 @@
+---
+import { commandPaletteEntries } from "../../const/nav";
+import { SITE } from "../../const/site";
+const entries = commandPaletteEntries();
+---
+<div id="cmdk" class="fixed inset-0 z-100 hidden" aria-hidden="true">
+    <div class="absolute inset-0 bg-black/60" data-cmdk-close></div>
+
+    <div class="absolute left-1/2 top-16 w-[min(720px,92vw)] -translate-x-1/2">
+        <div class="rounded-2xl border border-white/10 bg-[rgb(var(--panel))] shadow-xl">
+            <div class="border-b border-white/10 p-3">
+                <input
+                    id="cmdk-input"
+                    class="w-full rounded-xl border border-white/10 bg-white/3 px-3 py-2 text-sm text-white/90 outline-none focus:ring-2 focus:ring-[rgba(var(--ring),0.35)]"
+                    placeholder={`Search ${SITE.name}…`}
+                    autocomplete="off"
+                />
+                <div class="mt-2 text-xs text-white/50 font-mono">Enter: open · Esc: close</div>
+            </div>
+
+            <ul id="cmdk-list" class="max-h-[52vh] overflow-auto p-2">
+                {entries.map((e) => (
+                    <li>
+                        <a
+                            href={e.href}
+                            class="cmdk-item block rounded-xl px-3 py-2 text-sm text-white/80 hover:bg-white/4 hover:text-white"
+                            data-cmdk-item
+                            data-label={e.label.toLowerCase()}
+                        >
+                            <span class="font-mono text-xs text-white/50">page</span>
+                            <span class="ml-2">{e.label}</span>
+                            <span class="ml-2 text-white/40">{e.href}</span>
+                        </a>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    </div>
+</div>

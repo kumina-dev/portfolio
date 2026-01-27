@@ -1,0 +1,9 @@
+{
+    "headline": "Currently building",
+    "items": [
+        "MukulaSoft indie tools (self-host friendly)",
+        "Privacy-first UX patterns and local-first data flows",
+        "Sharpening performance profiling + observability"
+    ],
+    "next": ["Publish 2 new case studies", "Add OG image generation", "Add RSS for logs (optional)"]
+}

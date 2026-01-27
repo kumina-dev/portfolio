@@ -1,0 +1,59 @@
+---
+const { title = "SYSTEM", subtitle = "Initializing secure console…" } = Astro.props as {
+    title?: string;
+    subtitle?: string;
+};
+---
+
+<div
+    id="boot"
+    class="fixed inset-0 z-9999 hidden"
+    aria-hidden="true"
+>
+    <div class="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+
+    <div class="absolute left-1/2 top-1/2 w-[min(680px,92vw)] -translate-x-1/2 -translate-y-1/2">
+        <div class="rounded-2xl border border-white/10 bg-white/4 p-6 shadow-2xl">
+            <div class="flex items-start justify-between gap-4">
+                <div>
+                    <div class="font-mono text-xs text-white/50">BOOT</div>
+                    <h1 class="mt-2 text-2xl font-semibold tracking-tight">
+                        {title}
+                        <span class="ml-2 align-middle text-sm font-mono text-white/60">
+                        v1
+                        </span>
+                    </h1>
+                    <p class="mt-2 text-sm text-white/70">{subtitle}</p>
+                </div>
+
+                <button
+                    type="button"
+                    class="rounded-xl border border-white/10 bg-white/3 px-3 py-1.5 text-xs text-white/70 hover:text-white"
+                    data-boot-skip
+                >
+                    Skip
+                </button>
+            </div>
+
+            <div class="mt-5 space-y-3">
+                <div class="flex items-center justify-between text-xs">
+                    <span class="font-mono text-white/50">Loading modules</span>
+                    <span class="font-mono text-white/50" id="boot-pct">0%</span>
+                </div>
+
+                <div class="h-2 overflow-hidden rounded-full border border-white/10 bg-black/20">
+                    <div
+                        id="boot-bar"
+                        class="h-full w-0 rounded-full"
+                        style={`background: linear-gradient(90deg, rgb(var(--accent)), rgb(var(--accent2)));`}
+                    ></div>
+                </div>
+
+                <div class="flex items-center justify-between text-xs text-white/45">
+                    <span class="font-mono">Tip: Ctrl K opens search</span>
+                    <span class="font-mono">Esc closes</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

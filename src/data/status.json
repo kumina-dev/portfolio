@@ -1,0 +1,6 @@
+[
+    { "label": "Status", "value": "Building", "hint": "Shipping small, often." },
+    { "label": "Focus", "value": "Privacy-first systems", "hint": "Least privilege, clean DX." },
+    { "label": "Availability", "value": "Open to roles", "hint": "Remote / Finland." },
+    { "label": "Primary Stack", "value": "Go · TypeScript · Postgres", "hint": "Astro for UI." }
+]

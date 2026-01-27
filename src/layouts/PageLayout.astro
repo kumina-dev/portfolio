@@ -1,0 +1,17 @@
+---
+import RootLayout from "./RootLayout.astro";
+import Topbar from "../components/system/Topbar.astro";
+import Footer from "../components/system/Footer.astro";
+import CommandPalette from "../components/system/CommandPalette.astro";
+const { title, description } = Astro.props as { title?: string; description?: string };
+const currentPath = Astro.url.pathname;
+---
+<RootLayout title={title} description={description}>
+    <Topbar currentPath={currentPath} />
+    <main class="mx-auto max-w-6xl px-4 py-10">
+        <slot />
+    </main>
+    <Footer />
+    <CommandPalette />
+    <script type="module" is:inline src="/src/scripts/command-palette.ts"></script>
+</RootLayout>

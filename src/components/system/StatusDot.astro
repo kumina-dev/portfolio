@@ -1,0 +1,7 @@
+---
+const { online = true } = Astro.props as { online?: boolean };
+---
+<span class:list={[
+    "inline-block h-2 w-2 rounded-full",
+    online ? "bg-emerald-400" : "bg-zinc-500"
+]} />
