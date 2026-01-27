@@ -5,21 +5,132 @@
 
     --bg: 10 10 14;
     --panel: 18 16 26;
-    --panel2: 14 12 20;
 
     --text: 235 235 245;
     --muted: 165 160 190;
 
     --accent: 168 85 247;
-    --accent2: 192 132 252;
 
-    --border: 55 45 85;
-    --ring: 192 132 252;
+    --border: 58 48 92;
+    --ring: 196 145 255;
 }
 
 html, body {
     background: rgb(var(--bg));
     color: rgb(var(--text));
+}
+
+body {
+    font-feature-settings: "liga" 1, "ss01" 1, "ss02" 1;
+}
+
+body, button, input, textarea, select {
+    color: rgb(var(--text));
+}
+
+::selection {
+    background: rgba(var(--accent), 0.35);
+    color: rgb(var(--text));
+}
+
+.ui-text {
+    color: rgb(var(--text));
+}
+
+.ui-muted {
+    color: rgb(var(--muted));
+}
+
+.ui-muted-soft {
+    color: rgba(var(--muted), 0.75);
+}
+
+.ui-muted-faint {
+    color: rgba(var(--muted), 0.55);
+}
+
+.ui-border {
+    border-color: rgba(var(--border), 0.65);
+}
+
+.ui-panel {
+    background: rgb(var(--panel));
+    border: 1px solid rgba(var(--border), 0.6);
+}
+
+.ui-panel-glass {
+    background: rgba(var(--panel), 0.7);
+    border: 1px solid rgba(var(--border), 0.5);
+    backdrop-filter: blur(14px);
+}
+
+.ui-field {
+    background: rgba(var(--panel), 0.5);
+    border: 1px solid rgba(var(--border), 0.65);
+    color: rgb(var(--text));
+}
+
+.ui-field::placeholder {
+    color: rgba(var(--muted), 0.7);
+}
+
+.ui-interactive {
+    transition: color 160ms ease, background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+.ui-interactive:hover {
+    color: rgb(var(--text));
+    border-color: rgba(var(--ring), 0.6);
+}
+
+.ui-interactive:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(var(--ring), 0.35);
+    border-color: rgba(var(--ring), 0.8);
+}
+
+.ui-interactive:active {
+    transform: translateY(1px);
+}
+
+.ui-interactive:disabled,
+.ui-interactive[aria-disabled="true"] {
+    opacity: 0.55;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.ui-interactive-surface:hover {
+    background-color: rgba(255, 255, 255, 0.06);
+}
+
+.ui-interactive-surface:active {
+    background-color: rgba(255, 255, 255, 0.12);
+}
+
+.tag.is-active {
+    color: rgb(var(--text));
+    border-color: rgba(var(--ring), 0.8);
+    box-shadow: 0 0 0 2px rgba(var(--ring), 0.4);
+}
+
+.proj-card {
+    transition: background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.proj:hover .proj-card {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: rgba(var(--ring), 0.6);
+    box-shadow: 0 0 0 1px rgba(var(--ring), 0.2);
+}
+
+.proj:focus-visible {
+    outline: none;
+}
+
+.proj:focus-visible .proj-card {
+    border-color: rgba(var(--ring), 0.8);
+    box-shadow: 0 0 0 3px rgba(var(--ring), 0.35);
 }
 
 body::before {
@@ -29,7 +140,7 @@ body::before {
     pointer-events: none;
     background: 
         radial-gradient(1200px 700px at 20% 0%, rgba(var(--accent), 0.10), transparent 60%),
-        radial-gradient(900px 600px at 90% 20%, rgba(var(--accent2), 0.08), transparent 55%),
+        radial-gradient(900px 600px at 90% 20%, rgba(var(--ring), 0.08), transparent 55%),
         linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
     background-size:
@@ -44,4 +155,13 @@ body::before {
         center;
     opacity: 0.30;
     mix-blend-mode: screen;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }

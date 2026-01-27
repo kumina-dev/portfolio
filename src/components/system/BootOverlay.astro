@@ -13,22 +13,22 @@ const { title = "SYSTEM", subtitle = "Initializing secure console…" } = Astro.
     <div class="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
 
     <div class="absolute left-1/2 top-1/2 w-[min(680px,92vw)] -translate-x-1/2 -translate-y-1/2">
-        <div class="rounded-2xl border border-white/10 bg-white/4 p-6 shadow-2xl">
+        <div class="ui-panel rounded-2xl p-6 shadow-2xl">
             <div class="flex items-start justify-between gap-4">
                 <div>
-                    <div class="font-mono text-xs text-white/50">BOOT</div>
+                    <div class="font-mono text-xs ui-muted-faint">BOOT</div>
                     <h1 class="mt-2 text-2xl font-semibold tracking-tight">
                         {title}
-                        <span class="ml-2 align-middle text-sm font-mono text-white/60">
+                        <span class="ml-2 align-middle font-mono text-sm ui-muted">
                         v1
                         </span>
                     </h1>
-                    <p class="mt-2 text-sm text-white/70">{subtitle}</p>
+                    <p class="mt-2 text-sm ui-muted">{subtitle}</p>
                 </div>
 
                 <button
                     type="button"
-                    class="rounded-xl border border-white/10 bg-white/3 px-3 py-1.5 text-xs text-white/70 hover:text-white"
+                    class="ui-interactive ui-interactive-surface rounded-xl border ui-border bg-[rgba(var(--panel),0.7)] px-3 py-1.5 text-xs ui-muted"
                     data-boot-skip
                 >
                     Skip
@@ -37,19 +37,19 @@ const { title = "SYSTEM", subtitle = "Initializing secure console…" } = Astro.
 
             <div class="mt-5 space-y-3">
                 <div class="flex items-center justify-between text-xs">
-                    <span class="font-mono text-white/50">Loading modules</span>
-                    <span class="font-mono text-white/50" id="boot-pct">0%</span>
+                    <span class="font-mono ui-muted-faint">Loading modules</span>
+                    <span class="font-mono ui-muted-faint" id="boot-pct">0%</span>
                 </div>
 
-                <div class="h-2 overflow-hidden rounded-full border border-white/10 bg-black/20">
+                <div class="h-2 overflow-hidden rounded-full border ui-border bg-black/20">
                     <div
                         id="boot-bar"
                         class="h-full w-0 rounded-full"
-                        style={`background: linear-gradient(90deg, rgb(var(--accent)), rgb(var(--accent2)));`}
+                        style={`background: linear-gradient(90deg, rgb(var(--accent)), rgb(var(--ring)));`}
                     ></div>
                 </div>
 
-                <div class="flex items-center justify-between text-xs text-white/45">
+                <div class="flex items-center justify-between text-xs ui-muted-faint">
                     <span class="font-mono">Tip: Ctrl K opens search</span>
                     <span class="font-mono">Esc closes</span>
                 </div>

@@ -9,24 +9,24 @@ const { title, project } = Astro.props as { title: string; project: any };
         </article>
 
         <aside class="space-y-4">
-            <div class="rounded-2xl border border-white/10 bg-white/3 p-4">
-                <div class="font-mono text-xs text-white/50">Project</div>
-                <div class="mt-1 text-base text-white/90">{project.data.title}</div>
-                <div class="mt-2 text-sm text-white/65">{project.data.summary}</div>
+            <div class="ui-panel-glass rounded-2xl p-4">
+                <div class="font-mono text-xs ui-muted-faint">Project</div>
+                <div class="mt-1 text-base ui-text">{project.data.title}</div>
+                <div class="mt-2 text-sm ui-muted">{project.data.summary}</div>
             </div>
 
-            <div class="rounded-2xl border border-white/10 bg-white/3 p-4">
-                <div class="font-mono text-xs text-white/50">Meta</div>
-                <div class="mt-2 text-sm text-white/70">Date: {project.data.date}</div>
-                <div class="mt-1 text-sm text-white/70">Status: {project.data.status}</div>
+            <div class="ui-panel-glass rounded-2xl p-4">
+                <div class="font-mono text-xs ui-mated-faint">Meta</div>
+                <div class="mt-2 text-sm ui-muted">Date: {project.data.date}</div>
+                <div class="mt-1 text-sm ui-muted">Status: {project.data.status}</div>
             </div>
 
-            <div class="rounded-2xl border border-white/10 bg-white/3 p-4">
+            <div class="ui-panel-glass rounded-2xl p-4">
                 <div class="font-mono text-xs text-white/50">Links</div>
                 <div class="mt-2 space-y-2 text-sm">
-                    {project.data.links?.repo ? <a href={project.data.links.repo}>Repo</a> : null}
-                    {project.data.links?.demo ? <a href={project.data.links.demo}>Demo</a> : null}
-                    {project.data.links?.docs ? <a href={project.data.links.docs}>Docs</a> : null}
+                    {project.data.links?.repo ? <a class="ui-interactive ui-muted" href={project.data.links.repo}>Repo</a> : null}
+                    {project.data.links?.demo ? <a class="ui-interactive ui-muted" href={project.data.links.demo}>Demo</a> : null}
+                    {project.data.links?.docs ? <a class="ui-interactive ui-muted" href={project.data.links.docs}>Docs</a> : null}
                 </div>
             </div>
         </aside>

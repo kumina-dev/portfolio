@@ -3,7 +3,7 @@ import Card from "../ui/Card.astro";
 const { label, value, hint } = Astro.props as { label: string; value: string; hint?: string };
 ---
 <Card class="p-4">
-    <div class="font-mono text-xs text-white/50">{label}</div>
-    <div class="mt-1 text-base text-white/90">{value}</div>
-    {hint ? <div class="mt-2 text-sm text-white/55">{hint}</div> : null}
+    <div class="font-mono text-xs ui-muted-faint">{label}</div>
+    <div class="mt-1 text-base ui-text">{value}</div>
+    {hint ? <div class="mt-2 text-sm ui-muted-soft">{hint}</div> : null}
 </Card>

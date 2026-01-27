@@ -5,13 +5,13 @@ import Kbd from "../ui/Kbd.astro";
 import StatusDot from "./StatusDot.astro";
 const { currentPath } = Astro.props as { currentPath: string };
 ---
-<header class="sticky top-0 z-40 border-b border-white/10 bg-[rgba(10,12,16,0.65)] backdrop-blur">
+<header class="sticky top-0 z-40 border-b ui-border bg-[rgba(var(--bg),0.75)] backdrop-blur">
     <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
         <div class="flex items-center gap-3">
             <StatusDot online />
-            <a href="/" class="font-mono text-sm text-white/90">{SITE.name}</a>
-            <span class="hidden text-xs text-white/40 sm:inline">·</span>
-            <span class="hidden text-xs text-white/60 sm:inline">{SITE.tagline}</span>
+            <a href="/" class="ui-interactive font-mono text-sm ui-text">{SITE.name}</a>
+            <span class="hidden text-xs ui-muted-faint sm:inline">·</span>
+            <span class="hidden text-xs ui-muted-soft sm:inline">{SITE.tagline}</span>
         </div>
 
         <nav class="hidden items-center gap-4 sm:flex">
@@ -19,8 +19,8 @@ const { currentPath } = Astro.props as { currentPath: string };
                 <a
                     href={n.href}
                     class:list={[
-                        "text-sm text-white/70 hover:text-white",
-                        currentPath === n.href ? "text-white underline decoration-white/25" : ""
+                        "ui-interactive text-sm ui-muted",
+                        currentPath === n.href ? "ui-text underline decoration-[rgba(var(--border),0.6)]" : ""
                     ]}
                 >
                     {n.label}
@@ -28,7 +28,7 @@ const { currentPath } = Astro.props as { currentPath: string };
             ))}
             <button
                 type="button"
-                class="ml-2 inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/3 px-3 py-1.5 text-xs text-white/70 hover:text-white"
+                class="ui-interactive ui-interactive-surface ml-2 inline-flex items-center gap-2 rounded-xl border ui-border bg-[rgba(var(--panel),0.7)] px-3 py-1.5 text-xs ui-muted"
                 data-cmdk-open
             >
                 Search <Kbd keys="Ctrl K" />
@@ -37,7 +37,7 @@ const { currentPath } = Astro.props as { currentPath: string };
 
         <button
             type="button"
-            class="sm:hidden rounded-xl border border-white/10 bg-white/3 px-3 py-1.5 text-xs text-white/70"
+            class="ui-interactive ui-interactive-surface sm:hidden rounded-xl border ui-border bg-[rgba(var(--panel),0.7)] px-3 py-1.5 text-xs ui-muted"
             data-cmdk-open
         >
             Menu

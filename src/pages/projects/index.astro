@@ -11,21 +11,21 @@ const allTags = Array.from(new Set(projects.flatMap((p) => p.data.tags))).sort()
     <div class="flex items-end justify-between gap-4">
         <div>
             <h1 class="text-2xl font-semibold">Projects</h1>
-            <p class="mt-2 text-white/70">Case studies in a consistent format.</p>
+            <p class="mt-2 ui-muted">Case studies in a consistent format.</p>
         </div>
         <input
             id="q"
-            class="w-[min(360px,55vw)] rounded-xl border border-white/10 bg-white/3 px-3 py-2 text-sm text-white/90 outline-none focus:ring-2 focus:ring-[rgba(var(--ring),0.35)]"
+            class="ui-field ui-interactive w-[min(360px,55vw)] rounded-xl px-3 py-2 text-sm outline-none"
             placeholder="Search projects…"
         />
     </div>
 
     <div class="mt-6 flex flex-wrap gap-2" id="tagbar">
-        <button class="tag rounded-full border border-white/10 bg-white/3 px-3 py-1 text-xs text-white/75" data-tag="">
+        <button class="tag ui-interactive ui-interactive-surface rounded-full border ui-border bg-[rgba(var(--panel),0.7)] px-3 py-1 text-xs ui-muted-soft" data-tag="">
             All
         </button>
         {allTags.map((t) => (
-            <button class="tag rounded-full border border-white/10 bg-white/3 px-3 py-1 text-xs text-white/75" data-tag={t}>
+            <button class="tag ui-interactive ui-interactive-surface rounded-full border ui-border bg-[rgba(var(--panel),0.7)] px-3 py-1 text-xs ui-muted-soft" data-tag={t}>
                 {t}
             </button>
         ))}
@@ -35,16 +35,16 @@ const allTags = Array.from(new Set(projects.flatMap((p) => p.data.tags))).sort()
         {projects.map((p) => (
             <a
                 href={`/projects/${p.data.slug}`}
-                class="proj block"
+                class="proj ui-interactive block"
                 data-title={p.data.title.toLowerCase()}
                 data-tags={p.data.tags.join(",").toLowerCase()}
             >
-                <Card class="p-5 hover:bg-white/4">
+                <Card class="proj-card p-5">
                     <div class="flex items-center justify-between gap-4">
-                        <div class="text-lg text-white/90">{p.data.title}</div>
-                        <div class="font-mono text-xs text-white/45">{p.data.date}</div>
+                        <div class="text-lg ui-text">{p.data.title}</div>
+                        <div class="font-mono text-xs ui-muted-faint">{p.data.date}</div>
                     </div>
-                    <p class="mt-2 text-sm text-white/70">{p.data.summary}</p>
+                    <p class="mt-2 text-sm ui-muted">{p.data.summary}</p>
                     <div class="mt-3 flex flex-wrap gap-2">
                         {p.data.stack.slice(0, 4).map((s) => <Chip text={s} />)}
                     </div>
@@ -73,11 +73,11 @@ const allTags = Array.from(new Set(projects.flatMap((p) => p.data.tags))).sort()
         }
 
         tagbar.addEventListener("click", (e) => {
-        const btn = e.target.closest("button[data-tag]");
-        if (!btn) return;
+            const btn = e.target.closest("button[data-tag]");
+            if (!btn) return;
             activeTag = btn.dataset.tag || "";
             tagbar.querySelectorAll("button[data-tag]").forEach(b => b.classList.remove("ring-2"));
-            btn.classList.add("ring-2");
+            btn.classList.add("is-active");
             apply();
         });
 
