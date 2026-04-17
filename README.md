@@ -27,14 +27,15 @@ integrations/         Supabase client, server, and proxy integration
 content/              Local fallback content
 shared/               Shared UI components and utilities
 styles/               Global design tokens and utilities
-supabase/             Local Supabase project metadata
+supabase/             SQL bootstrap and optional local Supabase metadata
+scripts/              Verification scripts such as the smoke test
 ```
 
 Route groups are used under `app/` so admin and auth-specific organization does not affect URLs.
 
 ## Environment Variables
 
-Create `.env.local` with:
+Copy `.env.example` to `.env.local` and set:
 
 ```bash
 NEXT_PUBLIC_SUPABASE_URL=your-project-url
@@ -51,6 +52,16 @@ Install dependencies:
 npm install
 ```
 
+Apply the database schema in your Supabase project:
+
+```sql
+\i supabase/schema.sql
+```
+
+The repo does not currently include Supabase CLI migrations. `supabase/schema.sql` is the source of truth for bootstrapping the tables and policies used by the app.
+
+Create at least one user in Supabase Auth. Authenticated users can access the admin area and manage content through the policies defined in `supabase/schema.sql`.
+
 Start the development server:
 
 ```bash
@@ -59,7 +70,7 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) for the public site.
 
-Admin login is available at [http://localhost:3000/admin/login](http://localhost:3000/admin/login). Proxy protects `/admin` routes through the Supabase session integration in `proxy.ts`.
+Admin login is available at [http://localhost:3000/admin/login](http://localhost:3000/admin/login). Next.js 16 `proxy.ts` performs the optimistic admin redirect, and server actions enforce auth again at the mutation boundary.
 
 ## Scripts
 
@@ -68,10 +79,12 @@ npm run dev
 npm run build
 npm run start
 npm run lint
+npm run test:smoke
 ```
 
 ## Notes
 
 - `.env.local` and other environment files are intentionally ignored by git.
 - `supabase/.temp/` contains local CLI state and is intentionally ignored.
+- `npm run test:smoke` expects a successful production build and verifies the public home page, admin login page, and unauthenticated `/admin` redirect.
 - The repo targets Next.js 16 conventions. Check `node_modules/next/dist/docs/` before making framework-level changes.

@@ -21,7 +21,7 @@ export default async function AdminSkillGroupDetailPage({
   return (
     <section>
       <h1>Edit skill group</h1>
-      <SkillGroupForm skillGroup={skillGroup} />
+      <SkillGroupForm mode="edit" skillGroup={skillGroup} />
     </section>
   );
 }

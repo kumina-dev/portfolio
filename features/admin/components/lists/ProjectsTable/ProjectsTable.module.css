@@ -21,3 +21,7 @@
   color: var(--color-text-muted);
   font-weight: 600;
 }
+
+.table td a {
+  color: var(--color-accent);
+}

@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test:smoke": "powershell -ExecutionPolicy Bypass -File .\\scripts\\smoke-test.ps1"
   },
   "dependencies": {
     "@supabase/ssr": "^0.10.2",

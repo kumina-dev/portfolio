@@ -3,11 +3,22 @@ import { LoginForm } from "@/features/admin/components/forms/LoginForm/LoginForm
 import { adminAuthService } from "@/features/admin/server/admin-auth.service";
 import styles from "./page.module.css";
 
-export default async function AdminLoginPage() {
+type AdminLoginPageProps = {
+  searchParams: Promise<{
+    redirectTo?: string;
+  }>;
+};
+
+export default async function AdminLoginPage({ searchParams }: AdminLoginPageProps) {
   const user = await adminAuthService.getVerifiedUser();
+  const { redirectTo } = await searchParams;
 
   if (user) {
-    redirect("/admin");
+    redirect(
+      redirectTo?.startsWith("/admin") && redirectTo !== "/admin/login"
+        ? redirectTo
+        : "/admin",
+    );
   }
   
   return (
@@ -16,7 +27,7 @@ export default async function AdminLoginPage() {
         <p className={styles.eyebrow}>Admin</p>
         <h1 className={styles.title}>Login</h1>
         <p className={styles.description}>Sign in to manage portfolio content.</p>
-        <LoginForm />
+        <LoginForm redirectTo={redirectTo} />
       </section>
     </main>
   );

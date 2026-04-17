@@ -1,5 +1,6 @@
 import {
   createProjectAction,
+  deleteProjectAction,
   updateProjectAction,
 } from "@/features/admin/actions/projects.actions";
 import type { PortfolioProject } from "@/features/portfolio/types/portfolio";
@@ -94,6 +95,16 @@ export function ProjectForm(props: ProjectFormProps) {
       </label>
 
       <div className={styles.actions}>
+        {project ? (
+          <Button
+            className={styles.button}
+            type="submit"
+            formAction={deleteProjectAction}
+            variant="secondary"
+          >
+            Delete project
+          </Button>
+        ) : null}
         <Button className={styles.button} type="submit">
           {props.mode === "create" ? "Create project" : "Save project"}
         </Button>

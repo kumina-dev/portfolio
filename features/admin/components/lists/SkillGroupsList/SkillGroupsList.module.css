@@ -28,25 +28,8 @@
   color: var(--color-text-muted);
 }
 
-.editLink {
-  display: inline-flex;
-  align-items: center;
-  min-height: 36px;
-  padding: 0 12px;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  color: var(--color-text);
-}
-
 .tags {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-}
-
-.tag {
-  padding: 6px 10px;
-  border: 1px solid var(--color-border);
-  border-radius: 999px;
-  color: var(--color-text-muted);
 }

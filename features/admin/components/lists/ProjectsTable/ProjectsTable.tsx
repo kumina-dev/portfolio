@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { PortfolioProject } from "@/features/portfolio/types/portfolio";
+import { Tag } from "@/shared/components/Tag/Tag";
 import styles from "./ProjectsTable.module.css";
 
 type ProjectsTableProps = {
@@ -22,7 +23,7 @@ export function ProjectsTable({ projects }: ProjectsTableProps) {
           {projects.map((project) => (
             <tr key={project.id}>
               <td>{project.title}</td>
-              <td>{project.featured ? "Yes" : "No"}</td>
+              <td>{project.featured ? <Tag>Featured</Tag> : "No"}</td>
               <td>{project.sortOrder}</td>
               <td>
                 <Link href={`/admin/projects/${project.id}`}>Edit</Link>

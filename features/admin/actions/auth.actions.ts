@@ -13,6 +13,7 @@ export async function loginAction(
 ): Promise<LoginActionState> {
   const email = String(formData.get("email") ?? "").trim();
   const password = String(formData.get("password") ?? "");
+  const redirectTo = String(formData.get("redirectTo") ?? "").trim();
 
   if (!email || !password) {
     return { error: "Email and password are required." };
@@ -29,7 +30,11 @@ export async function loginAction(
     return { error: error.message };
   }
 
-  redirect("/admin");
+  redirect(
+    redirectTo.startsWith("/admin") && !redirectTo.startsWith("/admin/login")
+      ? redirectTo
+      : "/admin",
+  );
 }
 
 export async function logoutAction() {

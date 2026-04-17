@@ -2,17 +2,24 @@
 
 import { useActionState } from "react";
 import { loginAction, type LoginActionState } from "@/features/admin/actions/auth.actions";
+import { Button } from "@/shared/components/Button/Button";
 import styles from "./LoginForm.module.css";
 
 const initialState: LoginActionState = {
   error: null,
 };
 
-export function LoginForm() {
+type LoginFormProps = {
+  redirectTo?: string;
+};
+
+export function LoginForm({ redirectTo }: LoginFormProps) {
   const [state, formAction, pending] = useActionState(loginAction, initialState);
 
   return (
     <form className={styles.form} action={formAction}>
+      <input type="hidden" name="redirectTo" value={redirectTo ?? ""} />
+
       <label className={styles.field}>
         <span>Email</span>
         <input
@@ -37,9 +44,9 @@ export function LoginForm() {
 
       {state.error ? <p className={styles.error}>{state.error}</p> : null}
 
-      <button className={styles.button} type="submit" disabled={pending}>
+      <Button className={styles.button} type="submit" disabled={pending}>
         {pending ? "Signing in..." : "Sign in"}
-      </button>
+      </Button>
     </form>
   )
 }

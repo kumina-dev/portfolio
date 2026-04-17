@@ -1,5 +1,5 @@
-import Link from "next/link";
 import type { PortfolioExperienceItem } from "@/features/portfolio/types/portfolio";
+import { Button } from "@/shared/components/Button/Button";
 import styles from "./ExperienceList.module.css";
 
 type ExperienceListProps = {
@@ -19,9 +19,13 @@ export function ExperienceList({ experience }: ExperienceListProps) {
 
             <div className={styles.actions}>
               <span className={styles.period}>{item.period}</span>
-              <Link className={styles.editLink} href={`/admin/experience/${item.id}`}>
+              <Button
+                className={styles.editLink}
+                href={`/admin/experience/${item.id}`}
+                variant="secondary"
+              >
                 Edit
-              </Link>
+              </Button>
             </div>
           </div>
 

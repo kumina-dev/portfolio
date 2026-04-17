@@ -91,3 +91,24 @@ export async function updateProjectAction(formData: FormData) {
   revalidatePath(`/admin/projects/${id}`);
   revalidatePath("/");
 }
+
+export async function deleteProjectAction(formData: FormData) {
+  await adminAuthService.requireUser();
+
+  const id = String(formData.get("id") ?? "").trim();
+
+  if (!id) {
+    throw new Error("Project id is required.");
+  }
+
+  const supabase = await createSupabaseServerClient();
+  const { error } = await supabase.from("portfolio_projects").delete().eq("id", id);
+
+  if (error) {
+    throw error;
+  }
+
+  revalidatePath(adminRoutes.projects);
+  revalidatePath("/");
+  redirect(adminRoutes.projects);
+}

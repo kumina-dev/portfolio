@@ -79,3 +79,23 @@ export async function updateExperienceAction(formData: FormData) {
   revalidatePath(`/admin/experience/${id}`);
   revalidatePath("/");
 }
+
+export async function deleteExperienceAction(formData: FormData) {
+  await adminAuthService.requireUser();
+  const id = String(formData.get("id") ?? "").trim();
+
+  if (!id) {
+    throw new Error("Experience id is required.");
+  }
+
+  const supabase = await createSupabaseServerClient();
+  const { error } = await supabase.from("portfolio_experience_items").delete().eq("id", id);
+
+  if (error) {
+    throw error;
+  }
+
+  revalidatePath(adminRoutes.experience);
+  revalidatePath("/");
+  redirect(adminRoutes.experience);
+}

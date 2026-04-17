@@ -1,8 +1,10 @@
 import {
   createExperienceAction,
+  deleteExperienceAction,
   updateExperienceAction,
 } from "@/features/admin/actions/experience.actions";
 import type { PortfolioExperienceItem } from "@/features/portfolio/types/portfolio";
+import { Button } from "@/shared/components/Button/Button";
 import styles from "./ExperienceForm.module.css";
 
 type ExperienceFormProps =
@@ -77,9 +79,19 @@ export function ExperienceForm(props: ExperienceFormProps) {
       </label>
 
       <div className={styles.actions}>
-        <button className={styles.button} type="submit">
+        {experience ? (
+          <Button
+            className={styles.button}
+            type="submit"
+            formAction={deleteExperienceAction}
+            variant="secondary"
+          >
+            Delete experience
+          </Button>
+        ) : null}
+        <Button className={styles.button} type="submit">
           {props.mode === "create" ? "Create experience" : "Save experience"}
-        </button>
+        </Button>
       </div>
     </form>
   );

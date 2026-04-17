@@ -1,5 +1,6 @@
-import Link from "next/link";
 import type { SkillGroup } from "@/features/portfolio/types/portfolio";
+import { Button } from "@/shared/components/Button/Button";
+import { Tag } from "@/shared/components/Tag/Tag";
 import styles from "./SkillGroupsList.module.css";
 
 type SkillGroupsListProps = {
@@ -17,16 +18,14 @@ export function SkillGroupsList({ skillGroups }: SkillGroupsListProps) {
               <span className={styles.sortOrder}>#{group.sortOrder}</span>
             </div>
 
-            <Link className={styles.editLink} href={`/admin/skills/${group.id}`}>
+            <Button className={styles.editLink} href={`/admin/skills/${group.id}`} variant="secondary">
               Edit
-            </Link>
+            </Button>
           </div>
 
           <div className={styles.tags}>
             {group.items.map((item) => (
-              <span key={item} className={styles.tag}>
-                {item}
-              </span>
+              <Tag key={item}>{item}</Tag>
             ))}
           </div>
         </article>
