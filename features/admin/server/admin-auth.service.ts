@@ -1,27 +1,35 @@
+import { redirect } from "next/navigation";
 import { createSupabaseServerAuthClient } from "@/integrations/supabase/server-auth";
 
 export const adminAuthService = {
-  async getSession() {
+  async getVerifiedUser() {
     const supabase = await createSupabaseServerAuthClient();
 
     const {
-      data: { session },
+      data: { user },
       error,
-    } = await supabase.auth.getSession();
+    } = await supabase.auth.getUser();
 
     if (error) {
+      if (error.name === "AuthSessionMissingError") {
+        return null;
+      }
+
       throw error;
     }
 
-    return session;
+    return user;
   },
 
-  async requireSession() {
-    const session = await this.getSession();
+  async requireUser() {
+    const user = await this.getVerifiedUser();
+
+    if (!user) {
+      redirect("/admin/login");
+    }
 
     return {
-      user: session?.user ?? null,
-      session,
+      user,
     };
   },
 };

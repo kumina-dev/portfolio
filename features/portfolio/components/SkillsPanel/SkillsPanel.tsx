@@ -1,3 +1,5 @@
+import { Section } from "@/shared/components/Section/Section";
+import { Tag } from "@/shared/components/Tag/Tag";
 import type { SkillGroup } from "../../types/portfolio";
 import styles from "./SkillsPanel.module.css";
 
@@ -7,27 +9,24 @@ type SkillsPanelProps = {
 
 export function SkillsPanel({ skillGroups }: SkillsPanelProps) {
   return (
-    <section className={styles.panel}>
-      <div className={styles.header}>
+    <Section title="Core stack" description="Tools, platforms, and working patterns I keep coming back to.">
+      <div className={styles.panel}>
         <p className={styles.eyebrow}>Skills</p>
-        <h2 className={styles.title}>Core stack</h2>
-      </div>
 
-      <div className={styles.grid}>
-        {skillGroups.map((group) => (
-          <article key={group.id} className={styles.card}>
-            <h3 className={styles.cardTitle}>{group.title}</h3>
+        <div className={styles.grid}>
+          {skillGroups.map((group) => (
+            <article key={group.id} className={styles.card}>
+              <h3 className={styles.cardTitle}>{group.title}</h3>
 
-            <div className={styles.tags}>
-              {group.items.map((item) => (
-                <span key={item} className={styles.tag}>
-                  {item}
-                </span>
-              ))}
-            </div>
-          </article>
-        ))}
+              <div className={styles.tags}>
+                {group.items.map((item) => (
+                  <Tag key={item}>{item}</Tag>
+                ))}
+              </div>
+            </article>
+          ))}
+        </div>
       </div>
-    </section>
+    </Section>
   );
 }

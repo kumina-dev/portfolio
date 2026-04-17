@@ -4,9 +4,9 @@ import { adminAuthService } from "@/features/admin/server/admin-auth.service";
 import styles from "./page.module.css";
 
 export default async function AdminLoginPage() {
-  const session = await adminAuthService.getSession();
+  const user = await adminAuthService.getVerifiedUser();
 
-  if (session?.user) {
+  if (user) {
     redirect("/admin");
   }
   
@@ -15,9 +15,7 @@ export default async function AdminLoginPage() {
       <section className={styles.card}>
         <p className={styles.eyebrow}>Admin</p>
         <h1 className={styles.title}>Login</h1>
-        <p className={styles.description}>
-          Sign in to manage portfolio content.
-        </p>
+        <p className={styles.description}>Sign in to manage portfolio content.</p>
         <LoginForm />
       </section>
     </main>

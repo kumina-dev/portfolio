@@ -1,4 +1,6 @@
+import { updateProfileAction } from "@/features/admin/actions/profile.actions";
 import type { PortfolioProfile } from "@/features/portfolio/types/portfolio";
+import { Button } from "@/shared/components/Button/Button";
 import styles from "./ProfileForm.module.css";
 
 type ProfileFormProps = {
@@ -7,15 +9,15 @@ type ProfileFormProps = {
 
 export function ProfileForm({ profile }: ProfileFormProps) {
   return (
-    <form className={styles.form}>
+    <form className={styles.form} action={updateProfileAction}>
       <label className={styles.field}>
         <span>Name</span>
-        <input className={styles.input} name="name" defaultValue={profile.name} />
+        <input className={styles.input} name="name" defaultValue={profile.name} required />
       </label>
 
       <label className={styles.field}>
         <span>Title</span>
-        <input className={styles.input} name="title" defaultValue={profile.title} />
+        <input className={styles.input} name="title" defaultValue={profile.title} required />
       </label>
 
       <label className={styles.field}>
@@ -29,7 +31,7 @@ export function ProfileForm({ profile }: ProfileFormProps) {
 
       <label className={styles.field}>
         <span>Email</span>
-        <input className={styles.input} name="email" defaultValue={profile.email} />
+        <input className={styles.input} name="email" defaultValue={profile.email} required />
       </label>
 
       <label className={styles.field}>
@@ -38,6 +40,7 @@ export function ProfileForm({ profile }: ProfileFormProps) {
           className={styles.input}
           name="githubUrl"
           defaultValue={profile.githubUrl}
+          required
         />
       </label>
 
@@ -48,13 +51,14 @@ export function ProfileForm({ profile }: ProfileFormProps) {
           name="summary"
           rows={6}
           defaultValue={profile.summary}
+          required
         />
       </label>
 
       <div className={styles.actions}>
-        <button className={styles.button} type="submit">
+        <Button className={styles.button} type="submit">
           Save profile
-        </button>
+        </Button>
       </div>
     </form>
   );

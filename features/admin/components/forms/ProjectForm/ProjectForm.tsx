@@ -1,4 +1,9 @@
+import {
+  createProjectAction,
+  updateProjectAction,
+} from "@/features/admin/actions/projects.actions";
 import type { PortfolioProject } from "@/features/portfolio/types/portfolio";
+import { Button } from "@/shared/components/Button/Button";
 import styles from "./ProjectForm.module.css";
 
 type ProjectFormProps =
@@ -13,17 +18,20 @@ type ProjectFormProps =
 
 export function ProjectForm(props: ProjectFormProps) {
   const project = props.mode === "edit" ? props.project : undefined;
+  const action = props.mode === "create" ? createProjectAction : updateProjectAction;
 
   return (
-    <form className={styles.form}>
+    <form className={styles.form} action={action}>
+      {project ? <input type="hidden" name="id" value={project.id} /> : null}
+
       <label className={styles.field}>
         <span>Title</span>
-        <input className={styles.input} name="title" defaultValue={project?.title ?? ""} />
+        <input className={styles.input} name="title" defaultValue={project?.title ?? ""} required />
       </label>
 
       <label className={styles.field}>
         <span>Slug</span>
-        <input className={styles.input} name="slug" defaultValue={project?.slug ?? ""} />
+        <input className={styles.input} name="slug" defaultValue={project?.slug ?? ""} required />
       </label>
 
       <label className={styles.fieldFull}>
@@ -33,6 +41,7 @@ export function ProjectForm(props: ProjectFormProps) {
           name="description"
           rows={5}
           defaultValue={project?.description ?? ""}
+          required
         />
       </label>
 
@@ -60,6 +69,7 @@ export function ProjectForm(props: ProjectFormProps) {
           className={styles.input}
           name="stack"
           defaultValue={project?.stack.join(", ") ?? ""}
+          required
         />
       </label>
 
@@ -70,6 +80,7 @@ export function ProjectForm(props: ProjectFormProps) {
           name="sortOrder"
           type="number"
           defaultValue={project?.sortOrder ?? 0}
+          required
         />
       </label>
 
@@ -83,9 +94,9 @@ export function ProjectForm(props: ProjectFormProps) {
       </label>
 
       <div className={styles.actions}>
-        <button className={styles.button} type="submit">
+        <Button className={styles.button} type="submit">
           {props.mode === "create" ? "Create project" : "Save project"}
-        </button>
+        </Button>
       </div>
     </form>
   );

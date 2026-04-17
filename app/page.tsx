@@ -1,5 +1,6 @@
 import { PortfolioShell } from "@/features/portfolio/components/PortfolioShell/PortfolioShell";
 import { portfolioService } from "@/features/portfolio/server/portfolio.service";
+import { Container } from "@/shared/components/Container/Container";
 import styles from "./page.module.css";
 
 export const revalidate = 300;
@@ -9,9 +10,11 @@ export default async function Page() {
   
   return (
     <main className={styles.page}>
-      <div className={styles.container}>
-        <PortfolioShell data={portfolio} />
-      </div>
+      <Container>
+        <div className={styles.container}>
+          <PortfolioShell data={portfolio} />
+        </div>
+      </Container>
     </main>
   );
 }

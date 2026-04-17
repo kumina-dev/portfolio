@@ -4,9 +4,11 @@ import { revalidatePath } from "next/cache";
 import { adminRoutes } from "@/features/admin/lib/admin.routes";
 import { adminUtils } from "@/features/admin/lib/admin.utils";
 import { skillGroupSchema } from "@/features/admin/schemas/skill-group.schema";
+import { adminAuthService } from "@/features/admin/server/admin-auth.service";
 import { createSupabaseServerClient } from "@/integrations/supabase/server";
 
 export async function updateSkillGroupAction(formData: FormData) {
+  await adminAuthService.requireUser();
   const id = String(formData.get("id") ?? "").trim();
 
   if (!id) {

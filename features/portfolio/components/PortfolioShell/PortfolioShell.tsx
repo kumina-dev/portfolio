@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { DEFAULT_PORTFOLIO_SECTION, PORTFOLIO_SECTIONS } from "../../lib/portfolio.contants";
 import type { PortfolioPageData, PortfolioSectionKey } from "../../types/portfolio";
 import { PortfolioSidebar } from "../PortfolioSidebar/PortfolioSidebar";
@@ -11,19 +11,30 @@ type PortfolioShellProps = {
   data: PortfolioPageData;
 };
 
-function getInitialSection(): PortfolioSectionKey {
-  if (typeof window === "undefined") {
-    return DEFAULT_PORTFOLIO_SECTION;
-  }
-
-  const hash = window.location.hash.replace("#", "") as PortfolioSectionKey;
-  const isValid = PORTFOLIO_SECTIONS.some((section) => section.key === hash);
-
-  return isValid ? hash : DEFAULT_PORTFOLIO_SECTION;
+function isPortfolioSectionKey(value: string): value is PortfolioSectionKey {
+  return PORTFOLIO_SECTIONS.some((section) => section.key === value);
 }
 
 export function PortfolioShell({ data }: PortfolioShellProps) {
-  const [activeSection, setActiveSection] = useState<PortfolioSectionKey>(getInitialSection);
+  const [activeSection, setActiveSection] = useState<PortfolioSectionKey>(DEFAULT_PORTFOLIO_SECTION);
+
+  useEffect(() => {
+    const syncFromHash = () => {
+      const hash = window.location.hash.replace("#", "");
+
+      if (isPortfolioSectionKey(hash)) {
+        setActiveSection(hash);
+        return;
+      }
+
+      setActiveSection(DEFAULT_PORTFOLIO_SECTION);
+    };
+
+    syncFromHash();
+    window.addEventListener("hashchange", syncFromHash);
+
+    return () => window.removeEventListener("hashchange", syncFromHash);
+  }, []);
 
   const activeSectionLabel = useMemo(() => {
     return (
@@ -34,10 +45,7 @@ export function PortfolioShell({ data }: PortfolioShellProps) {
 
   const handleSectionChange = (section: PortfolioSectionKey) => {
     setActiveSection(section);
-
-    if (typeof window !== "undefined") {
-      window.history.replaceState(null, "", `#${section}`);
-    }
+    window.history.replaceState(null, "", `#${section}`);
   };
 
   return (

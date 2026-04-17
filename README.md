@@ -23,7 +23,7 @@ Portfolio data is loaded from Supabase. If the profile record is missing, the pu
 app/                  Routes, layouts, loading and error boundaries
 features/admin/       Admin UI, server services, forms, and actions
 features/portfolio/   Public portfolio UI and data mapping
-integrations/         Supabase client, server, and middleware integration
+integrations/         Supabase client, server, and proxy integration
 content/              Local fallback content
 shared/               Shared UI components and utilities
 styles/               Global design tokens and utilities
@@ -59,7 +59,7 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) for the public site.
 
-Admin login is available at [http://localhost:3000/admin/login](http://localhost:3000/admin/login). Middleware protects `/admin` routes through the Supabase session integration in `middleware.ts`.
+Admin login is available at [http://localhost:3000/admin/login](http://localhost:3000/admin/login). Proxy protects `/admin` routes through the Supabase session integration in `proxy.ts`.
 
 ## Scripts
 

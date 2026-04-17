@@ -4,7 +4,7 @@ import { env } from "@/shared/lib/env";
 import type { Database } from "./types";
 
 export async function updateSession(request: NextRequest) {
-  let response  = NextResponse.next({
+  let response = NextResponse.next({
     request,
   });
 

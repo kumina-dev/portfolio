@@ -1,3 +1,5 @@
+import { Button } from "@/shared/components/Button/Button";
+import { Section } from "@/shared/components/Section/Section";
 import type { PortfolioContact } from "../../types/portfolio";
 import styles from "./ContactPanel.module.css";
 
@@ -7,29 +9,29 @@ type ContactPanelProps = {
 
 export function ContactPanel({ contact }: ContactPanelProps) {
   return (
-    <section className={styles.panel}>
-      <p className={styles.eyebrow}>Contact</p>
-      <h2 className={styles.title}>Get in touch</h2>
-      <p className={styles.description}>
-        Hiring, collaboration, or other professionally acceptable reasons.
-      </p>
+    <Section
+      title="Get in touch"
+      description="Hiring, collaboration, or other professionally acceptable reasons."
+    >
+      <div className={styles.panel}>
+        <p className={styles.eyebrow}>Contact</p>
 
-      <div className={styles.cardGrid}>
-        <a className={styles.card} href={`mailto:${contact.email}`}>
-          <span className={styles.cardLabel}>Email</span>
-          <strong>{contact.email}</strong>
-        </a>
+        <div className={styles.cardGrid}>
+          <div className={styles.card}>
+            <span className={styles.cardLabel}>Email</span>
+            <strong>{contact.email}</strong>
+            <Button href={`mailto:${contact.email}`}>Send email</Button>
+          </div>
 
-        <a
-          className={styles.card}
-          href={contact.githubUrl}
-          target="_blank"
-          rel="noreferrer"
-        >
-          <span className={styles.cardLabel}>GitHub</span>
-          <strong>github.com/kumina-dev</strong>
-        </a>
+          <div className={styles.card}>
+            <span className={styles.cardLabel}>GitHub</span>
+            <strong>github.com/kumina-dev</strong>
+            <Button href={contact.githubUrl} target="_blank" rel="noreferrer" variant="secondary">
+              Open profile
+            </Button>
+          </div>
+        </div>
       </div>
-    </section>
+    </Section>
   );
 }

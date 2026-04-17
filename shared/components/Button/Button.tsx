@@ -6,37 +6,56 @@ type CommonProps = {
   variant?: "primary" | "secondary";
 };
 
-type ButtonProps =
-  | (CommonProps &
-      ButtonHTMLAttributes<HTMLButtonElement> & {
-        href?: never;
-      })
-  | (CommonProps &
-      AnchorHTMLAttributes<HTMLAnchorElement> & {
-        href: string;
-      });
+type ButtonElementProps = CommonProps &
+  ButtonHTMLAttributes<HTMLButtonElement> & {
+    href?: never;
+  };
+
+type AnchorElementProps = CommonProps &
+  AnchorHTMLAttributes<HTMLAnchorElement> & {
+    href: string;
+  };
+
+type ButtonProps = ButtonElementProps | AnchorElementProps;
 
 export function Button(props: ButtonProps) {
+  const variant = props.variant ?? "primary";
   const className = [
     styles.button,
-    props.variant === "secondary" ? styles.secondary : styles.primary,
+    variant === "secondary" ? styles.secondary : styles.primary,
     props.className,
   ]
     .filter(Boolean)
     .join(" ");
 
   if ("href" in props && props.href) {
-    const { children, variant: _variant, className: _className, ...rest } = props;
+    const {
+      children,
+      variant: _variant,
+      className: _className,
+      href,
+      ...rest
+    } = props as AnchorElementProps;
+    void _variant;
+    void _className;
     return (
-      <a {...rest} className={className}>
+      <a {...rest} href={href} className={className}>
         {children}
       </a>
     );
   }
 
-  const { children, variant: _variant, className: _className, ...rest } = props;
+  const {
+    children,
+    variant: _variant,
+    className: _className,
+    type = "button",
+    ...rest
+  } = props as ButtonElementProps;
+  void _variant;
+  void _className;
   return (
-    <button {...rest} className={className}>
+    <button {...rest} type={type} className={className}>
       {children}
     </button>
   );
