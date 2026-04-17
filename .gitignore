@@ -23,6 +23,7 @@
 # misc
 .DS_Store
 *.pem
+Thumbs.db
 
 # debug
 npm-debug.log*
@@ -35,6 +36,13 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# local tooling
+.idea/
+.vscode/
+
+# local data and caches
+supabase/.temp/
 
 # typescript
 *.tsbuildinfo
