@@ -1,10 +1,5 @@
-import { SkillGroupForm } from "@/features/admin/components/forms/SkillGroupForm/SkillGroupForm";
+import { SkillGroupEditor } from "@/features/cms/components/admin/SkillGroupEditor/SkillGroupEditor";
 
 export default function AdminNewSkillGroupPage() {
-  return (
-    <section>
-      <h1>New skill group</h1>
-      <SkillGroupForm mode="create" />
-    </section>
-  );
+  return <SkillGroupEditor skillGroupBundle={null} />;
 }

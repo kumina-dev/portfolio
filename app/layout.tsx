@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Ville Syrjälä | Portfolio",
+  title: "Ville Syrjälä | Product-focused software developer",
   description:
-    "Software developer portfolio for Ville Syrjälä. TypeScript, React, Next.js, Expo, Go, Prisma, Firebase, Supabase, MySQL.",
+    "Portfolio and case studies for Ville Syrjälä, a software developer focused on product execution, interface systems, and maintainable architecture.",
 };
 
 type RootLayoutProps = Readonly<{

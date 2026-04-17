@@ -1,10 +1,5 @@
-import { ExperienceForm } from "@/features/admin/components/forms/ExperienceForm/ExperienceForm";
+import { ExperienceEditor } from "@/features/cms/components/admin/ExperienceEditor/ExperienceEditor";
 
 export default function AdminNewExperiencePage() {
-  return (
-    <section>
-      <h1>New experience</h1>
-      <ExperienceForm mode="create" />
-    </section>
-  );
+  return <ExperienceEditor experience={null} />;
 }

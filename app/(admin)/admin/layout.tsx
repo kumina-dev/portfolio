@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
-import { AdminShell } from "@/features/admin/components/AdminShell/AdminShell";
 import { adminAuthService } from "@/features/admin/server/admin-auth.service";
+import { CmsShell } from "@/features/cms/components/admin/CmsShell/CmsShell";
 
 type AdminLayoutProps = Readonly<{
   children: ReactNode;
@@ -9,5 +9,5 @@ type AdminLayoutProps = Readonly<{
 export default async function AdminLayout({ children }: AdminLayoutProps) {
   const { user } = await adminAuthService.requireUser();
 
-  return <AdminShell email={user.email ?? ""}>{children}</AdminShell>;
+  return <CmsShell email={user.email ?? ""}>{children}</CmsShell>;
 }

@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
-import { SkillGroupForm } from "@/features/admin/components/forms/SkillGroupForm/SkillGroupForm";
-import { adminSkillsService } from "@/features/admin/server/admin-skills.service";
+import { SkillGroupEditor } from "@/features/cms/components/admin/SkillGroupEditor/SkillGroupEditor";
+import { getCmsSkillGroupEditorData } from "@/features/cms/queries/cms-admin.queries";
 
 type AdminSkillGroupDetailPageProps = {
   params: Promise<{
@@ -12,16 +12,11 @@ export default async function AdminSkillGroupDetailPage({
   params,
 }: AdminSkillGroupDetailPageProps) {
   const { skillGroupId } = await params;
-  const skillGroup = await adminSkillsService.getSkillGroupById(skillGroupId);
+  const skillGroup = await getCmsSkillGroupEditorData(skillGroupId);
 
   if (!skillGroup) {
     notFound();
   }
 
-  return (
-    <section>
-      <h1>Edit skill group</h1>
-      <SkillGroupForm mode="edit" skillGroup={skillGroup} />
-    </section>
-  );
+  return <SkillGroupEditor skillGroupBundle={skillGroup} />;
 }

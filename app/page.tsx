@@ -1,20 +1,9 @@
-import { PortfolioShell } from "@/features/portfolio/components/PortfolioShell/PortfolioShell";
-import { portfolioService } from "@/features/portfolio/server/portfolio.service";
-import { Container } from "@/shared/components/Container/Container";
-import styles from "./page.module.css";
+import { HomePage } from "@/features/site/components/HomePage/HomePage";
+import { getHomePageViewModel } from "@/features/site/queries/site-content.queries";
 
 export const revalidate = 300;
 
 export default async function Page() {
-  const portfolio = await portfolioService.getPortfolioPageData();
-  
-  return (
-    <main className={styles.page}>
-      <Container>
-        <div className={styles.container}>
-          <PortfolioShell data={portfolio} />
-        </div>
-      </Container>
-    </main>
-  );
+  const data = await getHomePageViewModel();
+  return <HomePage data={data} />;
 }

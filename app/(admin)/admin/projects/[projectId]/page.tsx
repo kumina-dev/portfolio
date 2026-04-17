@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
-import { ProjectForm } from "@/features/admin/components/forms/ProjectForm/ProjectForm";
-import { adminProjectsService } from "@/features/admin/server/admin-projects.service";
+import { ProjectEditor } from "@/features/cms/components/admin/ProjectEditor/ProjectEditor";
+import { getCmsProjectEditorData } from "@/features/cms/queries/cms-admin.queries";
 
 type AdminProjectDetailPageProps = {
   params: Promise<{
@@ -12,16 +12,11 @@ export default async function AdminProjectDetailPage({
   params,
 }: AdminProjectDetailPageProps) {
   const { projectId } = await params;
-  const project = await adminProjectsService.getProjectById(projectId);
+  const project = await getCmsProjectEditorData(projectId);
 
   if (!project) {
     notFound();
   }
 
-  return (
-    <section>
-      <h1>Edit project</h1>
-      <ProjectForm mode="edit" project={project} />
-    </section>
-  );
+  return <ProjectEditor projectBundle={project} />;
 }

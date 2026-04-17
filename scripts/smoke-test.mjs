@@ -43,6 +43,9 @@ try {
   const homeResponse = await fetch(`${baseUrl}/`, { redirect: "manual" });
   assert.equal(homeResponse.status, 200, "Expected public home page to return 200");
 
+  const projectResponse = await fetch(`${baseUrl}/work/kuminaos`, { redirect: "manual" });
+  assert.equal(projectResponse.status, 200, "Expected public project detail page to return 200");
+
   const loginResponse = await fetch(`${baseUrl}/admin/login`, { redirect: "manual" });
   assert.equal(loginResponse.status, 200, "Expected admin login page to return 200");
 
@@ -53,6 +56,9 @@ try {
     "/admin/login?redirectTo=%2Fadmin",
     "Expected /admin redirect to preserve the target path",
   );
+
+  const previewResponse = await fetch(`${baseUrl}/api/preview?path=/`, { redirect: "manual" });
+  assert.equal(previewResponse.status, 401, "Expected unauthenticated preview request to be rejected");
 } finally {
   server.kill("SIGTERM");
   await delay(500);

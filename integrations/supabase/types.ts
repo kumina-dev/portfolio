@@ -7,13 +7,252 @@ export type Json =
   | Json[]
 
 export type Database = {
-  // Allows to automatically instantiate createClient with right options
-  // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
     PostgrestVersion: "14.5"
   }
   public: {
     Tables: {
+      cms_experience_items: {
+        Row: {
+          company: string
+          highlights: string[]
+          id: string
+          period: string
+          published_at: string | null
+          role: string
+          sort_order: number
+          status: Database["public"]["Enums"]["publishing_status"]
+          summary: string
+          updated_at: string
+        }
+        Insert: {
+          company: string
+          highlights?: string[]
+          id?: string
+          period: string
+          published_at?: string | null
+          role: string
+          sort_order?: number
+          status?: Database["public"]["Enums"]["publishing_status"]
+          summary: string
+          updated_at?: string
+        }
+        Update: {
+          company?: string
+          highlights?: string[]
+          id?: string
+          period?: string
+          published_at?: string | null
+          role?: string
+          sort_order?: number
+          status?: Database["public"]["Enums"]["publishing_status"]
+          summary?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      cms_profile: {
+        Row: {
+          availability: string
+          email: string
+          featured_label: string
+          github_url: string
+          hero_intro: string
+          id: string
+          location: string | null
+          name: string
+          published_at: string | null
+          status: Database["public"]["Enums"]["publishing_status"]
+          summary: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          availability: string
+          email: string
+          featured_label: string
+          github_url: string
+          hero_intro: string
+          id?: string
+          location?: string | null
+          name: string
+          published_at?: string | null
+          status?: Database["public"]["Enums"]["publishing_status"]
+          summary: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          availability?: string
+          email?: string
+          featured_label?: string
+          github_url?: string
+          hero_intro?: string
+          id?: string
+          location?: string | null
+          name?: string
+          published_at?: string | null
+          status?: Database["public"]["Enums"]["publishing_status"]
+          summary?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      cms_project_sections: {
+        Row: {
+          content: string
+          heading: string
+          id: string
+          project_id: string
+          section_key: string
+          sort_order: number
+        }
+        Insert: {
+          content: string
+          heading: string
+          id?: string
+          project_id: string
+          section_key: string
+          sort_order?: number
+        }
+        Update: {
+          content?: string
+          heading?: string
+          id?: string
+          project_id?: string
+          section_key?: string
+          sort_order?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cms_project_sections_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "cms_projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cms_projects: {
+        Row: {
+          cover_image_url: string | null
+          featured: boolean
+          headline: string
+          id: string
+          live_url: string | null
+          outcomes: string
+          published_at: string | null
+          repository_url: string | null
+          role: string
+          slug: string
+          sort_order: number
+          stack: string[]
+          status: Database["public"]["Enums"]["publishing_status"]
+          summary: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          cover_image_url?: string | null
+          featured?: boolean
+          headline: string
+          id?: string
+          live_url?: string | null
+          outcomes: string
+          published_at?: string | null
+          repository_url?: string | null
+          role: string
+          slug: string
+          sort_order?: number
+          stack?: string[]
+          status?: Database["public"]["Enums"]["publishing_status"]
+          summary: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          cover_image_url?: string | null
+          featured?: boolean
+          headline?: string
+          id?: string
+          live_url?: string | null
+          outcomes?: string
+          published_at?: string | null
+          repository_url?: string | null
+          role?: string
+          slug?: string
+          sort_order?: number
+          stack?: string[]
+          status?: Database["public"]["Enums"]["publishing_status"]
+          summary?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      cms_skill_groups: {
+        Row: {
+          description: string
+          id: string
+          published_at: string | null
+          sort_order: number
+          status: Database["public"]["Enums"]["publishing_status"]
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          description: string
+          id?: string
+          published_at?: string | null
+          sort_order?: number
+          status?: Database["public"]["Enums"]["publishing_status"]
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          description?: string
+          id?: string
+          published_at?: string | null
+          sort_order?: number
+          status?: Database["public"]["Enums"]["publishing_status"]
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      cms_skill_items: {
+        Row: {
+          emphasis: string | null
+          id: string
+          label: string
+          skill_group_id: string
+          sort_order: number
+        }
+        Insert: {
+          emphasis?: string | null
+          id?: string
+          label: string
+          skill_group_id: string
+          sort_order?: number
+        }
+        Update: {
+          emphasis?: string | null
+          id?: string
+          label?: string
+          skill_group_id?: string
+          sort_order?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cms_skill_items_skill_group_id_fkey"
+            columns: ["skill_group_id"]
+            isOneToOne: false
+            referencedRelation: "cms_skill_groups"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       portfolio_experience_items: {
         Row: {
           company: string
@@ -166,10 +405,42 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      save_cms_project: {
+        Args: {
+          p_id?: string | null
+          p_slug: string
+          p_title: string
+          p_headline: string
+          p_summary: string
+          p_role: string
+          p_outcomes: string
+          p_stack: string[]
+          p_repository_url?: string | null
+          p_live_url?: string | null
+          p_cover_image_url?: string | null
+          p_featured?: boolean
+          p_sort_order?: number
+          p_status: Database["public"]["Enums"]["publishing_status"]
+          p_published_at?: string | null
+          p_sections: Json
+        }
+        Returns: string
+      }
+      save_cms_skill_group: {
+        Args: {
+          p_id?: string | null
+          p_title: string
+          p_description: string
+          p_sort_order?: number
+          p_status: Database["public"]["Enums"]["publishing_status"]
+          p_published_at?: string | null
+          p_items: Json
+        }
+        Returns: string
+      }
     }
     Enums: {
-      [_ in never]: never
+      publishing_status: "draft" | "published"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -296,6 +567,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      publishing_status: ["draft", "published"],
+    },
   },
 } as const
