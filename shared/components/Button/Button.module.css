@@ -1,0 +1,21 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: 0 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.primary {
+  background: var(--color-text);
+  color: var(--color-bg);
+  border-color: transparent;
+}
+
+.secondary {
+  background: var(--color-surface);
+  color: var(--color-text);
+}
